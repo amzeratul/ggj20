@@ -1,0 +1,10 @@
+---
+timelines:
+  variableUpdate:
+  - SpriteAnimation
+  - Camera
+
+  render:
+  - SpriteRender
+  - CameraRender
+...
