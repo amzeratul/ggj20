@@ -3,6 +3,7 @@
 #include "components/sprite_component.h"
 #include "components/position_component.h"
 #include "components/camera_component.h"
+#include "sprite_layers.h"
 
 void GameStage::init()
 {
@@ -14,12 +15,12 @@ void GameStage::init()
 	world->addService(inputService);
 
 	world->createEntity()
-		.addComponent(SpriteComponent(Sprite().setImage(getResources(), "dummy.png"), 0, 1))
-		.addComponent(PositionComponent(Vector2f(160.0f, 90.0f)));
+		.addComponent(SpriteComponent(Sprite().setImage(getResources(), "background.png"), int(SpriteLayers::Background), 1))
+		.addComponent(PositionComponent(Vector2f(0.0f, 0.0f)));
 
 	world->createEntity()
-		.addComponent(PositionComponent(Vector2f(160.0f, 90.0f)))
-		.addComponent(CameraComponent(6.0f, Colour4f(0.0f, 0.0f, 0.0f), 1, 0));
+		.addComponent(PositionComponent(Vector2f(192.0f, 108.0f)))
+		.addComponent(CameraComponent(3.0f, Colour4f(0.0f, 0.0f, 0.0f), 1, 0));
 }
 
 void GameStage::onVariableUpdate(Time t)

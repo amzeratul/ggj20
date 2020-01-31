@@ -26,6 +26,7 @@ set (HEADERS
 	"prec.h"
 	"src/game.h"
 	"src/game_stage.h"
+	"src/sprite_layers.h"
 
 	"src/services/input_service.h"
 	"src/services/painter_service.h"
