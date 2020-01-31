@@ -1,0 +1,60 @@
+---
+packs:
+  - name: music
+    matches:
+      - ~:audioClip:music
+
+  - name: sfx
+    matches:
+      - ~:audioClip:sfx
+
+  - name: movie
+    matches:
+      - ~:binaryFile:movie
+
+  - name: maps
+    matches:
+      - ~:binaryFile:campaigns
+      - ~:binaryFile:maps
+
+  - name: gameplay
+    matches:
+      - ~:configFile:gameplay
+      - ~:configFile:tilesets
+      - ~:binaryFile:lua
+
+  - name: config
+    matches:
+      - ~:configFile
+      - ~:textFile
+      - ~:audioEvent
+      - ~:variableTable
+
+  - name: ui
+    matches:
+      - ~:font
+      - ~:sprite:ui
+      - ~:spriteSheet:ui_background
+      - ~:spriteSheet:splash
+      - ~:spriteSheet:ui
+      - ~:animation:ui
+      - ~:texture:ui_background
+      - ~:texture:fontTex
+      - ~:texture:splash
+      - ~:texture:ui
+      - ~:binaryFile:text
+      - ~:binaryFile:misc
+
+  - name: images
+    matches:
+      - ~:sprite
+      - ~:spriteSheet
+      - ~:animation
+      - ~:texture
+      - ~:binaryFile:test
+
+  - name: shaders
+    matches:
+      - ~:materialDefinition
+      - ~:shader
+...
