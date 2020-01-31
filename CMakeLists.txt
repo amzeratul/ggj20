@@ -17,12 +17,18 @@ set (SOURCES
 	"prec.cpp"
 	"src/game.cpp"
 	"src/game_stage.cpp"
+
+	"src/services/input_service.cpp"
+	"src/services/painter_service.cpp"
 	)
 
 set (HEADERS
 	"prec.h"
 	"src/game.h"
 	"src/game_stage.h"
+
+	"src/services/input_service.h"
+	"src/services/painter_service.h"
 	)
 
 set (GEN_DEFINITIONS

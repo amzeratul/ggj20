@@ -1,0 +1,13 @@
+---
+
+type:
+  name: PainterService
+  include: "src/services/painter_service.h"
+
+---
+
+type:
+  name: InputService
+  include: "src/services/input_service.h"
+
+...

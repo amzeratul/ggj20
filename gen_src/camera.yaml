@@ -1,0 +1,24 @@
+---
+
+system:
+  name: CameraRender
+  families:
+  - camera:
+    - Camera: read
+    - Position: read
+  method: render
+  strategy: global
+  services:
+  - PainterService
+
+---
+
+system:
+  name: Camera
+  families:
+  - trackingCamera:
+    - Camera: read
+    - Position: write
+  strategy: global
+
+...
