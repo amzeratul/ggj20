@@ -44,7 +44,7 @@ int ItemService::getItemLevel(const String& id) const
 void ItemService::onItemDone(const String& id, bool itemOK)
 {
 	const int curLevel = getItemLevel(id);
-	const int newLevel = clamp((itemOK ? curLevel + 1 : 0), 0, 3);
+	const int newLevel = clamp((itemOK ? curLevel + 1 : curLevel - 1), 0, 3);
 
 	if (itemOK) {
 		score += (getItemMult(curLevel) * mult + 5) / 10;
@@ -53,7 +53,8 @@ void ItemService::onItemDone(const String& id, bool itemOK)
 	} else {
 		mult = 10;
 	}
-	
+
+	nItemsComplete++;	
 	itemLevels[id] = newLevel;
 }
 
@@ -111,6 +112,10 @@ bool ItemService::needsRestart() const
 
 void ItemService::addNextItem()
 {
-	auto id = Random::getGlobal().getRandomElement(items.getIds());
+	const int maxItems = 1 + (nItemsComplete + 5) / 10;
+
+	const int sz = std::min(maxItems, int(items.getIds().size()));
+	auto& rng = Random::getGlobal();
+	auto id = items.getIds().at(rng.getInt(0, sz - 1));
 	itemQueue.push_back(id);
 }

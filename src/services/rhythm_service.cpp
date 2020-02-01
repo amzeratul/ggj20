@@ -66,6 +66,7 @@ void RhythmService::onNewItem(const ItemConfig& item)
 	itemStartsAt = alignedBeat;
 	itemEndsAt = alignedBeat + int(item.actions.size());
 	currentItemOK = true;
+	curItemId = item.id;
 }
 
 bool RhythmService::isItemOK() const
@@ -82,6 +83,11 @@ bool RhythmService::isItemOK() const
 	}
 
 	return true;
+}
+
+const String& RhythmService::getCurItemId() const
+{
+	return curItemId;
 }
 
 void RhythmService::queueActions(std::vector<BlacksmithActions> actions, int firstBeat)

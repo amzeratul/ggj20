@@ -39,6 +39,8 @@ private:
 	int mult = 10;
 	int health = 10;
 
+	int nItemsComplete = 0;
+
 	bool restart = false;
 
 	void addNextItem();

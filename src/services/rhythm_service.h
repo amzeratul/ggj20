@@ -25,6 +25,8 @@ public:
 	void onNewItem(const ItemConfig& item);
 	bool isItemOK() const;
 
+	const String& getCurItemId() const;
+
 	BlacksmithActions getActionAtBeat(int beat) const;
 	bool onBeatInput(int beat, BlacksmithActions action);
 	void onBeatMiss(int beat);
@@ -37,6 +39,7 @@ private:
 	int itemStartsAt = 0;
 	int itemEndsAt = 0;
 	bool currentItemOK = false;
+	String curItemId;
 
 	std::vector<BlacksmithActions> actionsQueued;
 	std::vector<char> playerInputRegistered;

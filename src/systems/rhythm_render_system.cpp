@@ -20,19 +20,18 @@ public:
 private:
 	void paint(Painter& painter)
 	{
-		const float endRadius = 21;
-		const float startRadius = endRadius * 3;
-		
 		for (auto& e: mainFamily) {
+			const float endRadius = 21 * (e.rhythmArea.action == BlacksmithActions::Idle ? 2.0f : 1.0f);
+			const float startRadius = endRadius * 3;
+
 			float t = clamp(e.rhythmArea.elapsed / e.rhythmArea.totalTime, 0.0f, 1.0f);
 			float radius = lerp(startRadius, endRadius, powf(t, 2.1f));
 			float opacity = pow(t, 2.0f);
-			painter.drawCircle(e.position.position, radius, 2, Colour4f(1, 1, 1, opacity));
-		}
-
-		BlacksmithActions actions[] = {BlacksmithActions::Anvil, BlacksmithActions::Bucket, BlacksmithActions::Furnace, BlacksmithActions::Love};
-		for (auto& a: actions) {
-			painter.drawCircle(BlacksmithActionsUtils::actionToPos(a), endRadius, 2, Colour4f(1, 1, 1, 0.1f));
+			auto col = e.rhythmArea.action == BlacksmithActions::Idle ? Colour4f(0.5f, 1.0f, 0.5f, opacity) :  Colour4f(1, 1, 1, opacity);
+			auto col2 = col;
+			col2.a = 0.2f;
+			painter.drawCircle(e.position.position, endRadius, 2, col2);
+			painter.drawCircle(e.position.position, radius, 2, col);
 		}
 	}
 };
