@@ -65,7 +65,7 @@ system:
     - Position: write
     - Sprite: write
   - vulcan:
-    - EnvironmentObject: read
+    - EnvironmentObject: write
     - SpriteAnimation: write
   services:
   - RhythmService

@@ -78,6 +78,8 @@ component:
   name: EnvironmentObject
   members:
   - id: 'Halley::String'
+  - animTime: float
+  - animTarget: 'Halley::String'
 
 ---
 
@@ -85,8 +87,9 @@ system:
   name: EnvironmentObject
   families:
   - object:
-    - EnvironmentObject: read
+    - EnvironmentObject: write
     - Sprite: write
+    - SpriteAnimation: write
   strategy: global
   access:
   - world

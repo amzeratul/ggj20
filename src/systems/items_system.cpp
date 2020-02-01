@@ -169,6 +169,8 @@ private:
 		for (auto& v: vulcanFamily) {
 			if (v.environmentObject.id == "vulcan") {
 				v.spriteAnimation.player.setSequence(getAnimNameForVulcan(action));
+				v.environmentObject.animTarget = "idle";
+				v.environmentObject.animTime = getRhythmService().getBeatLength() * 0.7f;
 			}
 		}
 	}

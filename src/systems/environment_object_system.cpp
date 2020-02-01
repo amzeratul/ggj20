@@ -14,6 +14,15 @@ public:
 	
 	void update(Time t)
     {
+		for (auto& e: objectFamily) {
+			if (!e.environmentObject.animTarget.isEmpty()) {
+				e.environmentObject.animTime -= float(t);
+				if (e.environmentObject.animTime <= 0) {
+					e.spriteAnimation.player.setSequence(e.environmentObject.animTarget);
+					e.environmentObject.animTarget = "";
+				}
+			}
+		}
 	}
 
 private:
@@ -34,7 +43,7 @@ private:
 				.addComponent(SpriteComponent(Sprite(), int(layer), 1))
 				.addComponent(SpriteAnimationComponent(AnimationPlayer(getResources().get<Animation>(anim))))
 				.addComponent(PositionComponent(pos))
-				.addComponent(EnvironmentObjectComponent(id));
+				.addComponent(EnvironmentObjectComponent(id, 0, ""));
 		}
 	}
 };
