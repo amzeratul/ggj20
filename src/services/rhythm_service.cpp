@@ -33,6 +33,11 @@ int RhythmService::getCurrentBeat() const
 	return currentBeat;
 }
 
+int RhythmService::getClosestBeat() const
+{
+	return lround(currentTime * bpm / 60.0f);
+}
+
 int RhythmService::getItemStartBeat() const
 {
 	return itemStartsAt;
@@ -77,6 +82,18 @@ BlacksmithActions RhythmService::getActionAtBeat(int beat) const
 	} else {
 		return BlacksmithActions::Idle;
 	}
+}
+
+void RhythmService::onBeatInput(int beat, BlacksmithActions action)
+{
+	// TODO
+	Logger::logInfo("Hit!");
+}
+
+void RhythmService::onOffBeat()
+{
+	// TODO
+	Logger::logInfo("Miss!");
 }
 
 float RhythmService::getBeatLength() const

@@ -17,6 +17,7 @@ public:
 	float getCurrentTime() const;
 
 	int getCurrentBeat() const;
+	int getClosestBeat() const;
 	int getItemStartBeat() const;
 	int getItemEndBeat() const;
 	float getBeatTime(int beat) const;
@@ -24,6 +25,9 @@ public:
 	void onNewItem(const ItemConfig& item);
 	void queueActions(std::vector<BlacksmithActions> actions, int firstBeat);
 	BlacksmithActions getActionAtBeat(int beat) const;
+
+	void onBeatInput(int beat, BlacksmithActions action);
+	void onOffBeat();
 
 private:
 	float bpm = 120;
