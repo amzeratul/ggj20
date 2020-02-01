@@ -2,6 +2,8 @@
 
 enum class SpriteLayers {
     Background,
+	BackgroundObject,
 	Items,
-	Smith
+	Smith,
+	UI
 };

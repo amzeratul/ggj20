@@ -1,7 +1,30 @@
 ---
 
+component:
+  name: UI
+  members:
+  - id: 'Halley::String'
+
+---
+
 system:
   name: UI
+  families:
+  - ui:
+    - UI: read
+    - SpriteAnimation: write
+  strategy: global
+  access:
+  - resources
+  - api
+  - world
+  services:
+  - ItemService
+
+---
+
+system:
+  name: UIRender
   families:
   - camera:
     - Camera: read

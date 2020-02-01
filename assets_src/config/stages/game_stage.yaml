@@ -9,10 +9,11 @@ timelines:
 
   - SpriteAnimation
   - Camera
+  - UI
 
   render:
   - SpriteRender
   - CameraRender
   - RhythmRender
-  - UI
+  - UIRender
 ...
