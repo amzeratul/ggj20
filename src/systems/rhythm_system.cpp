@@ -33,21 +33,7 @@ private:
 
 	void createBeatMarker(int id, BlacksmithActions action)
 	{
-		Vector2f pos;
-		switch (action) {
-		case BlacksmithActions::Anvil:
-			pos = Vector2f(192, 166);
-			break;
-		case BlacksmithActions::Bucket:
-			pos = Vector2f(133, 108);
-			break;
-		case BlacksmithActions::Furnace:
-			pos = Vector2f(192, 50);
-			break;
-		case BlacksmithActions::Love:
-			pos = Vector2f(251, 108);
-			break;
-		}
+		Vector2f pos = BlacksmithActionsUtils::actionToPos(action);
 		
 		const float beatLen = 60.0f / getRhythmService().getBPM();
 		getWorld().createEntity()
