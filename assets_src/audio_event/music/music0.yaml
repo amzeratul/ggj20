@@ -1,7 +1,7 @@
 ---
 actions:
   - type: play
-    clips: [ music/testbeat.ogg ]
+    clips: [ music/music0.ogg ]
     group: music
     loop: true
 ...
