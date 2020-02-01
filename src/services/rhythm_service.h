@@ -10,6 +10,8 @@ public:
 	void start(AudioAPI& api);
 	void update(Time t);
 	
+	float getBPM() const;
+
 	void setCurrentTime(float time);
 	float getCurrentTime() const;
 

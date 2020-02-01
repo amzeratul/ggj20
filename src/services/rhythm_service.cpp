@@ -12,6 +12,11 @@ void RhythmService::update(Time t)
 	// TODO: sync with music
 }
 
+float RhythmService::getBPM() const
+{
+	return bpm;
+}
+
 void RhythmService::setCurrentTime(float time)
 {
 	currentTime = time;
@@ -54,7 +59,7 @@ void RhythmService::onNewItem(const ItemConfig& item)
 void RhythmService::queueActions(std::vector<BlacksmithActions> actions, int firstBeat)
 {
 	actionsQueued.resize(firstBeat + actions.size(), BlacksmithActions::Idle);
-	for (int i = firstBeat; i < int(actions.size()); ++i) {
+	for (int i = 0; i < int(actions.size()); ++i) {
 		actionsQueued[i + firstBeat] = actions[i];
 	}
 }
