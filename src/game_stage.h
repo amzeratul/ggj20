@@ -4,6 +4,7 @@
 #include "services/painter_service.h"
 #include "services/input_service.h"
 #include "services/rhythm_service.h"
+#include "services/item_service.h"
 using namespace Halley;
 
 class GameStage : public EntityStage {
@@ -17,6 +18,7 @@ private:
 	std::shared_ptr<PainterService> painterService;
 	std::shared_ptr<InputService> inputService;
 	std::shared_ptr<RhythmService> rhythmService;
+	std::shared_ptr<ItemService> itemService;
 	
-	std::shared_ptr<World> world;	 
+	std::shared_ptr<World> world;
 };

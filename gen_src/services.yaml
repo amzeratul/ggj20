@@ -7,6 +7,12 @@ type:
 ---
 
 type:
+  name: ItemService
+  include: "src/services/item_service.h"
+
+---
+
+type:
   name: InputService
   include: "src/services/input_service.h"
 

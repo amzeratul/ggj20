@@ -1,0 +1,9 @@
+---
+
+items:
+  - id: sword
+    imageBroken: items/sword_broken.png
+    imageFixed: items/sword_fixed.png
+    actions: "YAXB"
+
+...

@@ -15,11 +15,13 @@ endif()
 
 set (SOURCES
 	"prec.cpp"
-	
+
+	"src/item_config.cpp"
 	"src/game.cpp"
 	"src/game_stage.cpp"
 
 	"src/services/input_service.cpp"
+	"src/services/item_service.cpp"
 	"src/services/painter_service.cpp"
 	"src/services/rhythm_service.cpp"
 	)
@@ -28,11 +30,13 @@ set (HEADERS
 	"prec.h"
 
 	"src/blacksmith_actions.h"
+	"src/item_config.h"
 	"src/game.h"
 	"src/game_stage.h"
 	"src/sprite_layers.h"
 
 	"src/services/input_service.h"
+	"src/services/item_service.h"
 	"src/services/painter_service.h"
 	"src/services/rhythm_service.h"
 	)
