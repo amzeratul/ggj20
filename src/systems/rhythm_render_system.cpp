@@ -1,4 +1,5 @@
 #include <systems/rhythm_render_system.h>
+#include "src/blacksmith_actions.h"
 
 using namespace Halley;
 
@@ -27,6 +28,11 @@ private:
 			float radius = lerp(startRadius, endRadius, powf(t, 2.1f));
 			float opacity = pow(t, 2.0f);
 			painter.drawCircle(e.position.position, radius, 2, Colour4f(1, 1, 1, opacity));
+		}
+
+		BlacksmithActions actions[] = {BlacksmithActions::Anvil, BlacksmithActions::Bucket, BlacksmithActions::Furnace, BlacksmithActions::Love};
+		for (auto& a: actions) {
+			painter.drawCircle(BlacksmithActionsUtils::actionToPos(a), endRadius, 2, Colour4f(1, 1, 1, 0.1f));
 		}
 	}
 };
