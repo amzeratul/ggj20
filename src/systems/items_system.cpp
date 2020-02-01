@@ -108,7 +108,7 @@ private:
 		}
 
 		// Update image
-		if (item.item.state == ItemState::Out) {
+		if (item.item.state == ItemState::Done) {
 			item.sprite.sprite.setImage(getResources(), itemConfig.imageFixed).setPivot(Vector2f(0.5f, 0.5f));
 		}
 
