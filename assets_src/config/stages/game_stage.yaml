@@ -1,10 +1,12 @@
 ---
 timelines:
   variableUpdate:
+  - Rhythm
   - SpriteAnimation
   - Camera
 
   render:
   - SpriteRender
   - CameraRender
+  - RhythmRender
 ...

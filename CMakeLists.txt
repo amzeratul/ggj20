@@ -20,6 +20,7 @@ set (SOURCES
 
 	"src/services/input_service.cpp"
 	"src/services/painter_service.cpp"
+	"src/services/rhythm_service.cpp"
 	)
 
 set (HEADERS
@@ -30,6 +31,7 @@ set (HEADERS
 
 	"src/services/input_service.h"
 	"src/services/painter_service.h"
+	"src/services/rhythm_service.h"
 	)
 
 set (GEN_DEFINITIONS

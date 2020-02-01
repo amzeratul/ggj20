@@ -1,0 +1,34 @@
+---
+
+component:
+  name: RhythmArea
+  members:
+  - id: int
+  - elapsed: float
+  - totalTime: float
+
+---
+
+system:
+  name: Rhythm
+  families:
+  - main:
+    - RhythmArea: write
+    - Position: read
+  strategy: global
+
+---
+
+system:
+  name: RhythmRender
+  families:
+  - main:
+    - RhythmArea: read
+    - Position: read
+  - camera:
+    - Camera: read
+    - Position: read
+  strategy: global
+  method: render
+
+...

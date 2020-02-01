@@ -26,16 +26,6 @@ component:
 ---
 
 component:
-  name: Camera
-  members:
-  - zoom: float
-  - clear: 'Halley::Maybe<Halley::Colour4f>'
-  - mask: int
-  - layer: int
-
----
-
-component:
   name: Position
   members:
   - position: 'Halley::Vector2f'

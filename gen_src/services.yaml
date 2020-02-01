@@ -10,4 +10,10 @@ type:
   name: InputService
   include: "src/services/input_service.h"
 
+---
+
+type:
+  name: RhythmService
+  include: "src/services/rhythm_service.h"
+
 ...
