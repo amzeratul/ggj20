@@ -104,21 +104,37 @@ BlacksmithActions RhythmService::getActionAtBeat(int beat) const
 
 bool RhythmService::onBeatInput(int beat, BlacksmithActions action)
 {
-	if (isValidBeatInput(beat, action)) {
-		return true;
-	} else {
+	bool valid = isValidBeatInput(beat, action);
+	if (beat >= 0 && beat < int(playerInputRegistered.size())) {
+		playerInputRegistered.at(beat) = 1;
+	}
+	if (!valid) {
 		currentItemOK = false;
+	}
+	return valid;
+}
+
+void RhythmService::onBeatMiss(int beat)
+{
+	if (beat >= 0 && beat < int(playerInputRegistered.size())) {
+		playerInputRegistered.at(beat) = 1;
+	}
+}
+
+bool RhythmService::hasMissedBeat(int beat)
+{
+	if (beat < 0 || beat >= int(playerInputRegistered.size()) || playerInputRegistered.at(beat) != 0) {
 		return false;
 	}
+	return playerInputRegistered[beat] == 0 && getActionAtBeat(beat) != BlacksmithActions::Idle;
 }
 
 bool RhythmService::isValidBeatInput(int beat, BlacksmithActions action)
 {
-	if (beat >= playerInputRegistered.size() || playerInputRegistered.at(beat) != 0) {
+	if (beat >= int(playerInputRegistered.size()) || playerInputRegistered.at(beat) != 0) {
 		// Already registered or not expecting input here
 		return false;
 	}
-	playerInputRegistered[beat] = 1;
 	return getActionAtBeat(beat) == action;
 }
 

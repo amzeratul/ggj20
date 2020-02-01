@@ -27,6 +27,8 @@ public:
 
 	BlacksmithActions getActionAtBeat(int beat) const;
 	bool onBeatInput(int beat, BlacksmithActions action);
+	void onBeatMiss(int beat);
+	bool hasMissedBeat(int beat);
 
 private:
 	float bpm = 120;

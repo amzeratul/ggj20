@@ -99,7 +99,7 @@ private:
 
 		// Move
 		if (item.item.state != ItemState::CurrentActive) {
-			MoveType moveType;
+			MoveType moveType = MoveType::Teleport;
 			switch (item.item.state) {
 			case ItemState::QueueBack:
 			case ItemState::QueueFront:
@@ -108,12 +108,8 @@ private:
 			case ItemState::CurrentWait:
 			case ItemState::Done:
 			case ItemState::Out:
+			case ItemState::Failed:
 				moveType = MoveType::Jump;
-				break;
-			case ItemState::CurrentActive:
-			case ItemState::Dead:
-			case ItemState::QueuePre:
-				moveType = MoveType::Teleport;
 				break;
 			}
 			sendMessage(item.entityId, MoveMessage(getItemPos(item.item.state), getRhythmService().getBeatLength(), moveType));
@@ -164,6 +160,7 @@ private:
 		} else {
 			item.item.state = ItemState::Failed;
 		}
+		getItemService().onItemDone(itemConfig.id, itemOK);
 	}
 
 	int curBeat = -1;

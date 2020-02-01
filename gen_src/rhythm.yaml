@@ -18,6 +18,7 @@ system:
   strategy: global
   services:
   - RhythmService
+  - ItemService
   - InputService
   access:
   - world

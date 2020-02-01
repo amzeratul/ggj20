@@ -53,6 +53,11 @@ private:
 		if (action != BlacksmithActions::Idle) {
 			createBeatMarker(curBeat + lookAhead, action);
 		}
+
+		// Missed last beat?
+		if (getRhythmService().hasMissedBeat(curBeat - 1)) {
+			onIncorrectInput();
+		}
 	}
 
 	void updateInput(InputVirtual& input)
@@ -84,6 +89,7 @@ private:
 				}
 			} else {
 				// Hit out of time
+				getRhythmService().onBeatMiss(closest);
 				onIncorrectInput();
 			}
 		}
@@ -91,7 +97,8 @@ private:
 
 	void onIncorrectInput()
 	{
-		// TODO
+		// TODO: sound/visual feedback
+		getItemService().onMiss();
 	}
 };
 
