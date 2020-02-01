@@ -58,14 +58,12 @@ private:
 	void updateInput(InputVirtual& input)
 	{
 		if (input.isAnyButtonPressed()) {
-			Logger::logInfo("boop");
 			const int closest = getRhythmService().getClosestBeat();
 			auto curTime = getRhythmService().getCurrentTime();
 			auto beatTime = getRhythmService().getBeatTime(closest);
 
 			// Distance is 0 at the exact time, -1/1 at completely off
 			float distance = 2 * (curTime - beatTime) / getRhythmService().getBeatLength();
-			Logger::logInfo("Distance: " + toString(distance));
 			const float threshold = 0.5f;
 			if (std::abs(distance) < threshold) {
 				// Hit on time
@@ -79,12 +77,21 @@ private:
 				} else if (input.isButtonPressed(3)) {
 					type = BlacksmithActions::Furnace;
 				}
-				getRhythmService().onBeatInput(closest, type);
+				
+				bool correct = getRhythmService().onBeatInput(closest, type);
+				if (!correct) {
+					onIncorrectInput();
+				}
 			} else {
 				// Hit out of time
-				getRhythmService().onOffBeat();
+				onIncorrectInput();
 			}
 		}
+	}
+
+	void onIncorrectInput()
+	{
+		// TODO
 	}
 };
 

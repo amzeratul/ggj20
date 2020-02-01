@@ -8,5 +8,6 @@ enum class ItemState {
     CurrentActive,
 	Done,
     Out,
+	Failed,
 	Dead
 };

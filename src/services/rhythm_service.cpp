@@ -65,11 +65,29 @@ void RhythmService::onNewItem(const ItemConfig& item)
 	queueActions(item.actions, alignedBeat);
 	itemStartsAt = alignedBeat;
 	itemEndsAt = alignedBeat + int(item.actions.size());
+	currentItemOK = true;
+}
+
+bool RhythmService::isItemOK() const
+{
+	if (!currentItemOK) {
+		return false;
+	}
+
+	// Check if any inputs got missed
+	for (int i = itemStartsAt; i < itemEndsAt; ++i) {
+		if (playerInputRegistered[i] == 0 && actionsQueued[i] != BlacksmithActions::Idle) {
+			return false;
+		}
+	}
+
+	return true;
 }
 
 void RhythmService::queueActions(std::vector<BlacksmithActions> actions, int firstBeat)
 {
 	actionsQueued.resize(firstBeat + actions.size(), BlacksmithActions::Idle);
+	playerInputRegistered.resize(actionsQueued.size(), 0);
 	for (int i = 0; i < int(actions.size()); ++i) {
 		actionsQueued[i + firstBeat] = actions[i];
 	}
@@ -84,16 +102,24 @@ BlacksmithActions RhythmService::getActionAtBeat(int beat) const
 	}
 }
 
-void RhythmService::onBeatInput(int beat, BlacksmithActions action)
+bool RhythmService::onBeatInput(int beat, BlacksmithActions action)
 {
-	// TODO
-	Logger::logInfo("Hit!");
+	if (isValidBeatInput(beat, action)) {
+		return true;
+	} else {
+		currentItemOK = false;
+		return false;
+	}
 }
 
-void RhythmService::onOffBeat()
+bool RhythmService::isValidBeatInput(int beat, BlacksmithActions action)
 {
-	// TODO
-	Logger::logInfo("Miss!");
+	if (beat >= playerInputRegistered.size() || playerInputRegistered.at(beat) != 0) {
+		// Already registered or not expecting input here
+		return false;
+	}
+	playerInputRegistered[beat] = 1;
+	return getActionAtBeat(beat) == action;
 }
 
 float RhythmService::getBeatLength() const

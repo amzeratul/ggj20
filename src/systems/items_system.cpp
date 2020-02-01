@@ -13,6 +13,8 @@ public:
 	
 	void update(Time t)
     {
+		itemOK = getRhythmService().isItemOK();
+
 		updateQueue();
 
 		if (curBeat != getRhythmService().getCurrentBeat()) {
@@ -72,7 +74,12 @@ private:
 
 	void nextStage(ItemFamily& item)
 	{
-		item.item.state = ItemState(int(item.item.state) + 1);
+		if (item.item.state == ItemState::Out) {
+			// Skip "Failed"
+			item.item.state = ItemState::Dead;
+		} else {
+			item.item.state = ItemState(int(item.item.state) + 1);
+		}
 		onStateChange(item);
 	}
 
@@ -80,7 +87,17 @@ private:
 	{
 		const auto& itemConfig = getItemService().getItemConfig(item.item.type);
 
-		// Update pos
+		// Get ready
+		if (item.item.state == ItemState::CurrentWait) {
+			getRhythmService().onNewItem(itemConfig);
+		}
+
+		// Update image
+		if (item.item.state == ItemState::Done) {
+			onItemDone(item, itemConfig);
+		}
+
+		// Move
 		if (item.item.state != ItemState::CurrentActive) {
 			MoveType moveType;
 			switch (item.item.state) {
@@ -100,16 +117,6 @@ private:
 				break;
 			}
 			sendMessage(item.entityId, MoveMessage(getItemPos(item.item.state), getRhythmService().getBeatLength(), moveType));
-		}
-
-		// Get ready
-		if (item.item.state == ItemState::CurrentWait) {
-			getRhythmService().onNewItem(itemConfig);
-		}
-
-		// Update image
-		if (item.item.state == ItemState::Done) {
-			item.sprite.sprite.setImage(getResources(), itemConfig.imageFixed).setPivot(Vector2f(0.5f, 0.5f));
 		}
 
 		// Delete old
@@ -141,6 +148,8 @@ private:
 			return Vector2f(80, 110);
 		case ItemState::Done:
 			return Vector2f(325, 110);
+		case ItemState::Failed:
+			return Vector2f(192, 300);
 		case ItemState::Out:
 			return Vector2f(425, 110);
 		default:
@@ -148,8 +157,18 @@ private:
 		}
 	}
 
+	void onItemDone(ItemFamily& item, const ItemConfig& itemConfig)
+	{	
+		if (itemOK) {
+			item.sprite.sprite.setImage(getResources(), itemConfig.imageFixed).setPivot(Vector2f(0.5f, 0.5f));
+		} else {
+			item.item.state = ItemState::Failed;
+		}
+	}
+
 	int curBeat = -1;
 	int nextItemId = 0;
+	bool itemOK = false;
 };
 
 REGISTER_SYSTEM(ItemsSystem)

@@ -23,11 +23,10 @@ public:
 	float getBeatTime(int beat) const;
 
 	void onNewItem(const ItemConfig& item);
-	void queueActions(std::vector<BlacksmithActions> actions, int firstBeat);
-	BlacksmithActions getActionAtBeat(int beat) const;
+	bool isItemOK() const;
 
-	void onBeatInput(int beat, BlacksmithActions action);
-	void onOffBeat();
+	BlacksmithActions getActionAtBeat(int beat) const;
+	bool onBeatInput(int beat, BlacksmithActions action);
 
 private:
 	float bpm = 120;
@@ -35,8 +34,13 @@ private:
 	int currentBeat = 0;
 	int itemStartsAt = 0;
 	int itemEndsAt = 0;
+	bool currentItemOK = false;
 
 	std::vector<BlacksmithActions> actionsQueued;
+	std::vector<char> playerInputRegistered;
 	
 	AudioHandle music;
+
+	void queueActions(std::vector<BlacksmithActions> actions, int firstBeat);
+	bool isValidBeatInput(int beat, BlacksmithActions action);
 };
