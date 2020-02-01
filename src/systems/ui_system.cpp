@@ -7,8 +7,8 @@ public:
 	void init()
 	{
 		font = TextRenderer()
-			.setFont(getResources().get<Font>("Ubuntu Bold"))
-			.setSize(6)
+			.setFont(getResources().get<Font>("Equipment"))
+			.setSize(16)
 			.setColour(Colour4f(1, 1, 1));
 	}
 	
