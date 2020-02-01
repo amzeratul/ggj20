@@ -99,6 +99,16 @@ bool ItemService::isAlive() const
 	return health > 0;
 }
 
+void ItemService::flagRestart()
+{
+	restart = true;
+}
+
+bool ItemService::needsRestart() const
+{
+	return restart;
+}
+
 void ItemService::addNextItem()
 {
 	// TODO

@@ -35,6 +35,10 @@ void GameStage::onVariableUpdate(Time t)
 {
 	inputService->update(t);
 	world->step(TimeLine::VariableUpdate, t);
+
+	if (itemService->needsRestart()) {
+		getAPI().core->setStage(std::make_unique<GameStage>());
+	}
 }
 
 void GameStage::onRender(RenderContext& rc) const

@@ -4,11 +4,6 @@ using namespace Halley;
 
 class RhythmSystem final : public RhythmSystemBase<RhythmSystem> {
 public:
-	void init()
-	{
-		getRhythmService().start(*getAPI().audio);
-	}
-	
 	void update(Time t)
     {
 		updateInput(getInputService().getInput());

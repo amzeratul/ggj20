@@ -27,6 +27,9 @@ public:
 
 	bool isAlive() const;
 
+	void flagRestart();
+	bool needsRestart() const;
+
 private:
 	ItemCollection items;
 	std::vector<String> itemQueue;
@@ -35,6 +38,8 @@ private:
 	int score = 0;
 	int mult = 10;
 	int health = 10;
+
+	bool restart = false;
 
 	void addNextItem();
 };

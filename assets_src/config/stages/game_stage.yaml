@@ -3,6 +3,8 @@ timelines:
   variableUpdate:
   - Rhythm
   - Items
+
+  - GameState
   - Move
 
   - SpriteAnimation

@@ -112,4 +112,17 @@ system:
   messages:
   - Move: receive
 
+---
+
+system:
+  name: GameState
+  strategy: global
+  services:
+  - RhythmService
+  - ItemService
+  - InputService
+  access:
+  - api
+  - resources
+
 ...
