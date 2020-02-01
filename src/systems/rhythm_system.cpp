@@ -11,6 +11,8 @@ public:
 	
 	void update(Time t)
     {
+		updateInput(getInputService().getInput());
+
 		getRhythmService().update(t);
 
 		if (lastBeat != getRhythmService().getCurrentBeat()) {
@@ -33,36 +35,70 @@ private:
 
 	void createBeatMarker(int id, BlacksmithActions action)
 	{
-		Vector2f pos;
-		switch (action) {
-		case BlacksmithActions::Anvil:
-			pos = Vector2f(192, 166);
-			break;
-		case BlacksmithActions::Bucket:
-			pos = Vector2f(133, 108);
-			break;
-		case BlacksmithActions::Furnace:
-			pos = Vector2f(192, 50);
-			break;
-		case BlacksmithActions::Love:
-			pos = Vector2f(251, 108);
-			break;
-		}
+		Vector2f pos = BlacksmithActionsUtils::actionToPos(action);
 		
+		const float beatLen = getRhythmService().getBeatLength();
 		getWorld().createEntity()
 			.addComponent(PositionComponent(pos))
-			.addComponent(RhythmAreaComponent(id, 0.0f, 60.0f / getRhythmService().getBPM()));
+			.addComponent(RhythmAreaComponent(id, -0.5f * beatLen, 1.5f * beatLen));
 	}
 
 	void onNewBeat(int curBeat)
 	{
 		// Draw next beat
-		Logger::logInfo("On beat " + toString(curBeat));
-		auto action = getRhythmService().getActionAtBeat(curBeat + 1);
+		int lookAhead = 2;
+		//Logger::logInfo("On beat " + toString(curBeat));
+		auto action = getRhythmService().getActionAtBeat(curBeat + lookAhead);
 
 		if (action != BlacksmithActions::Idle) {
-			createBeatMarker(curBeat + 1, action);
+			createBeatMarker(curBeat + lookAhead, action);
 		}
+
+		// Missed last beat?
+		if (getRhythmService().hasMissedBeat(curBeat - 1)) {
+			onIncorrectInput();
+		}
+	}
+
+	void updateInput(InputVirtual& input)
+	{
+		if (input.isAnyButtonPressed()) {
+			const int closest = getRhythmService().getClosestBeat();
+			auto curTime = getRhythmService().getCurrentTime();
+			auto beatTime = getRhythmService().getBeatTime(closest);
+
+			// Distance is 0 at the exact time, -1/1 at completely off
+			float distance = 2 * (curTime - beatTime) / getRhythmService().getBeatLength();
+			const float threshold = 0.5f;
+			if (std::abs(distance) < threshold) {
+				// Hit on time
+				BlacksmithActions type = BlacksmithActions::Idle;
+				if (input.isButtonPressed(0)) {
+					type = BlacksmithActions::Anvil;
+				} else if (input.isButtonPressed(1)) {
+					type = BlacksmithActions::Love;
+				} else if (input.isButtonPressed(2)) {
+					type = BlacksmithActions::Bucket;
+				} else if (input.isButtonPressed(3)) {
+					type = BlacksmithActions::Furnace;
+				}
+				
+				bool correct = getRhythmService().onBeatInput(closest, type);
+				if (!correct) {
+					onIncorrectInput();
+				}
+			} else {
+				// Hit out of time
+				getRhythmService().onBeatMiss(closest);
+				onIncorrectInput();
+			}
+		}
+	}
+
+	void onIncorrectInput()
+	{
+		// TODO: sound/visual feedback
+		getItemService().onMiss();
 	}
 };
 

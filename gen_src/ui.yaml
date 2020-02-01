@@ -1,0 +1,17 @@
+---
+
+system:
+  name: UI
+  families:
+  - camera:
+    - Camera: read
+    - Position: read
+  strategy: global
+  method: render
+  access:
+  - resources
+  - api
+  services:
+  - ItemService
+
+...

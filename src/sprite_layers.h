@@ -1,5 +1,7 @@
 #pragma once
 
 enum class SpriteLayers {
-    Background
+    Background,
+	Items,
+	Smith
 };

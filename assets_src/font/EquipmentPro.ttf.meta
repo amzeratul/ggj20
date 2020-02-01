@@ -1,0 +1,11 @@
+---
+fontSize: 16
+radius: 1.5
+supersample: 1
+fontName: "Equipment"
+filtering: false
+lineSpacing: 0
+ascenderAdjustment: 0
+rangeStart: 0
+rangeEnd: 256
+...

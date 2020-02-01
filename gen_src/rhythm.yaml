@@ -18,6 +18,8 @@ system:
   strategy: global
   services:
   - RhythmService
+  - ItemService
+  - InputService
   access:
   - world
   - resources
@@ -39,14 +41,75 @@ system:
 
 ---
 
+type:
+  name: ItemState
+  include: "src/item_state.h"
+
+---
+
+component:
+  name: Item
+  members:
+  - id: int
+  - type: 'Halley::String'
+  - state: ItemState
+
+---
+
 system:
   name: Items
   strategy: global
+  families:
+  - item:
+    - Item: write
+    - Position: write
+    - Sprite: write
   services:
   - RhythmService
   - ItemService
   access:
   - world
   - resources
+  messages:
+  - Move: send
+
+---
+
+type:
+  name: MoveType
+  include: "src/move_type.h"
+
+---
+
+component:
+  name: MoveAnimation
+  members:
+  - moving: bool
+  - start: 'Halley::Vector2f'
+  - end: 'Halley::Vector2f'
+  - len: float
+  - curTime: float
+  - moveType: MoveType
+
+---
+
+message:
+  name: Move
+  members:
+  - to: 'Halley::Vector2f'
+  - len: float
+  - moveType: MoveType
+
+---
+
+system:
+  name: Move
+  strategy: global
+  families:
+  - main:
+    - Position: write
+    - MoveAnimation: write
+  messages:
+  - Move: receive
 
 ...

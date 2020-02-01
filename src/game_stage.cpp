@@ -10,7 +10,7 @@
 void GameStage::init()
 {
 	painterService = std::make_unique<PainterService>();
-	inputService = std::make_unique<InputService>();
+	inputService = std::make_unique<InputService>(getInputAPI());
 	rhythmService = std::make_unique<RhythmService>();
 	itemService = std::make_unique<ItemService>();
 
@@ -33,6 +33,7 @@ void GameStage::init()
 
 void GameStage::onVariableUpdate(Time t)
 {
+	inputService->update(t);
 	world->step(TimeLine::VariableUpdate, t);
 }
 

@@ -3,6 +3,8 @@ timelines:
   variableUpdate:
   - Rhythm
   - Items
+  - Move
+
   - SpriteAnimation
   - Camera
 
@@ -10,4 +12,5 @@ timelines:
   - SpriteRender
   - CameraRender
   - RhythmRender
+  - UI
 ...
