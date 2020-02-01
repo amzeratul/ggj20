@@ -5,5 +5,20 @@ objects:
     animation: vulcan
     layer: smith
     position: [192, 133]
-
+  - id: anvil
+    animation: anvil
+    layer: objects
+    position: [191, 166]
+  - id: love
+    animation: love
+    layer: objects
+    position: [254, 107]
+  - id: bucket
+    animation: bucket
+    layer: objects
+    position: [128, 107]
+  - id: furnace
+    animation: furnace
+    layer: objects
+    position: [191, 48]
 ...
