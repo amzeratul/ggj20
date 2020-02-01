@@ -12,4 +12,5 @@ timelines:
   - SpriteRender
   - CameraRender
   - RhythmRender
+  - UI
 ...
