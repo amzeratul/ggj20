@@ -111,6 +111,6 @@ bool ItemService::needsRestart() const
 
 void ItemService::addNextItem()
 {
-	// TODO
-	itemQueue.push_back("sword");
+	auto id = Random::getGlobal().getRandomElement(items.getIds());
+	itemQueue.push_back(id);
 }

@@ -43,10 +43,16 @@ void ItemCollection::load(const ConfigNode& node)
 		ItemConfig item;
 		item.load(n);
 		items[item.id] = item;
+		ids.push_back(item.id);
 	}
 }
 
 const ItemConfig& ItemCollection::getItem(const String& name) const
 {
 	return items.at(name);
+}
+
+const std::vector<String>& ItemCollection::getIds() const
+{
+	return ids;
 }

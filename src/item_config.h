@@ -21,7 +21,9 @@ public:
 	
 	void load(const ConfigNode& node);
 	const ItemConfig& getItem(const String& name) const;
+	const std::vector<String>& getIds() const;
 
 private:
+	std::vector<String> ids;
 	std::map<String, ItemConfig> items;
 };
