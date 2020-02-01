@@ -9,6 +9,7 @@ public:
 	void init()
 	{
 		updateQueue();
+		updateVulcanAnimation(BlacksmithActions::Idle);
 	}
 	
 	void update(Time t)
@@ -105,6 +106,7 @@ private:
 		// Update image
 		if (item.item.state == ItemState::Done) {
 			onItemDone(item, itemConfig);
+			updateVulcanAnimation(BlacksmithActions::Idle);
 		}
 
 		// Move
@@ -136,9 +138,37 @@ private:
 		if (getItemService().isAlive()) {
 			for (auto& item: itemFamily) {
 				if (item.item.state == ItemState::CurrentActive) {
-					item.position.position = BlacksmithActionsUtils::actionToPos(getRhythmService().getActionAtBeat(getRhythmService().getCurrentBeat()));
+					const auto curAction = getRhythmService().getActionAtBeat(getRhythmService().getCurrentBeat());
+					item.position.position = BlacksmithActionsUtils::actionToPos(curAction);
+					updateVulcanAnimation(curAction);
 					break;
 				}
+			}
+		}
+	}
+
+	String getAnimNameForVulcan(BlacksmithActions action)
+	{
+		switch (action) {
+		case BlacksmithActions::Anvil:
+			return "anvil";
+		case BlacksmithActions::Bucket:
+			return "bucket";
+		case BlacksmithActions::Furnace:
+			return "furnace";
+		case BlacksmithActions::Idle:
+			return "idle";
+		case BlacksmithActions::Love:
+			return "love";
+		}
+		return "";
+	}
+
+	void updateVulcanAnimation(BlacksmithActions action)
+	{
+		for (auto& v: vulcanFamily) {
+			if (v.environmentObject.id == "vulcan") {
+				v.spriteAnimation.player.setSequence(getAnimNameForVulcan(action));
 			}
 		}
 	}
