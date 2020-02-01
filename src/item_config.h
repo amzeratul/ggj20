@@ -20,7 +20,7 @@ public:
 	ItemCollection(const ConfigNode& node);
 	
 	void load(const ConfigNode& node);
-	ItemConfig& getItem(const String& name);
+	const ItemConfig& getItem(const String& name) const;
 
 private:
 	std::map<String, ItemConfig> items;

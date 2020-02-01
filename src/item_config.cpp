@@ -46,7 +46,7 @@ void ItemCollection::load(const ConfigNode& node)
 	}
 }
 
-ItemConfig& ItemCollection::getItem(const String& name)
+const ItemConfig& ItemCollection::getItem(const String& name) const
 {
 	return items.at(name);
 }

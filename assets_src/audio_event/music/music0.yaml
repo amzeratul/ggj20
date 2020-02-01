@@ -3,4 +3,5 @@ actions:
   - type: play
     clips: [ music/testbeat.ogg ]
     group: music
+    loop: true
 ...

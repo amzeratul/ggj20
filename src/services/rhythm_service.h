@@ -2,6 +2,7 @@
 
 #include <halley.hpp>
 #include "src/blacksmith_actions.h"
+#include "src/item_config.h"
 using namespace Halley;
 
 class RhythmService : public Service {
@@ -11,10 +12,12 @@ public:
 	
 	void setCurrentTime(float time);
 	float getCurrentTime() const;
-	
+
 	int getCurrentBeat() const;
+	int getItemEndBeat() const;
 	float getBeatTime(int beat) const;
 
+	void onNewItem(const ItemConfig& item);
 	void queueActions(std::vector<BlacksmithActions> actions, int firstBeat);
 	BlacksmithActions getActionAtBeat(int beat) const;
 
@@ -22,6 +25,7 @@ private:
 	float bpm = 120;
 	float currentTime = 0;
 	int currentBeat = 0;
+	int itemEndsAt = 0;
 
 	std::vector<BlacksmithActions> actionsQueued;
 	

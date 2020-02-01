@@ -25,12 +25,30 @@ float RhythmService::getCurrentTime() const
 
 int RhythmService::getCurrentBeat() const
 {
-	return currentBeat;;
+	return currentBeat;
+}
+
+int RhythmService::getItemEndBeat() const
+{
+	return itemEndsAt;
 }
 
 float RhythmService::getBeatTime(int beat) const
 {
 	return float(beat) * 60.0f / bpm;
+}
+
+void RhythmService::onNewItem(const ItemConfig& item)
+{
+	int nextBeat = getCurrentBeat() + 4;
+	int alignedBeat = alignUp(nextBeat, 4);
+	if (nextBeat != alignedBeat) {
+		Logger::logWarning("nextBeat and alignedBeat don't match!");
+	} else {
+		Logger::logInfo("Queued " + item.id + " at " + toString(alignedBeat));
+	}
+	queueActions(item.actions, alignedBeat);
+	itemEndsAt = alignedBeat + int(item.actions.size());
 }
 
 void RhythmService::queueActions(std::vector<BlacksmithActions> actions, int firstBeat)
