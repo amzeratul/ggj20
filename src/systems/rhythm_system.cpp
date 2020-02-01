@@ -23,6 +23,11 @@ public:
 				getWorld().destroyEntity(e.entityId);
 			}
 		}
+
+		float bounceTime = (getRhythmService().getCurrentTime() - getRhythmService().getBeatTime(getRhythmService().getCurrentBeat())) / getRhythmService().getBeatLength();
+		for (auto& e: envObjectsFamily) {
+			e.environmentObject.bounceTime = bounceTime;
+		}
 	}
 
 private:

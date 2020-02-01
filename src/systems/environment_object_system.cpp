@@ -22,6 +22,7 @@ public:
 					e.environmentObject.animTarget = "";
 				}
 			}
+			e.sprite.sprite.setScale(1.0f + std::cos(e.environmentObject.bounceTime * 2 * 3.14159265f) * 0.05f * e.environmentObject.bounceAmplitude);
 		}
 	}
 
@@ -33,6 +34,7 @@ private:
 			const auto anim = n["animation"].asString();
 			const auto layerName = n["layer"].asString();
 			const auto pos = n["position"].asVector2f();
+			const auto amplitude = n["bounce"].asFloat();
 
 			auto layer = SpriteLayers::BackgroundObject;
 			if (layerName == "smith") {
@@ -43,7 +45,7 @@ private:
 				.addComponent(SpriteComponent(Sprite(), int(layer), 1))
 				.addComponent(SpriteAnimationComponent(AnimationPlayer(getResources().get<Animation>(anim))))
 				.addComponent(PositionComponent(pos))
-				.addComponent(EnvironmentObjectComponent(id, 0, ""));
+				.addComponent(EnvironmentObjectComponent(id, 0, "", 0, amplitude));
 		}
 	}
 };

@@ -80,6 +80,8 @@ component:
   - id: 'Halley::String'
   - animTime: float
   - animTarget: 'Halley::String'
+  - bounceTime: float
+  - bounceAmplitude: float
 
 ---
 
