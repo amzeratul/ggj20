@@ -21,6 +21,7 @@ system:
   access:
   - world
   - resources
+  - api
 
 ---
 
@@ -35,5 +36,17 @@ system:
     - Position: read
   strategy: global
   method: render
+
+---
+
+system:
+  name: Items
+  strategy: global
+  services:
+  - RhythmService
+  - ItemService
+  access:
+  - world
+  - resources
 
 ...

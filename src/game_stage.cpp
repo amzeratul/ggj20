@@ -15,7 +15,6 @@ void GameStage::init()
 	itemService = std::make_unique<ItemService>();
 
 	itemService->setItems(ItemCollection(getResources().get<ConfigFile>("gameplay/items")->getRoot()));
-	rhythmService->start(getAudioAPI());
 
 	world = createWorld("stages/game_stage", createSystem, createComponent);
 	world->addService(painterService);
@@ -34,7 +33,6 @@ void GameStage::init()
 
 void GameStage::onVariableUpdate(Time t)
 {
-	rhythmService->update(t);
 	world->step(TimeLine::VariableUpdate, t);
 }
 

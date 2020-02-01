@@ -10,6 +10,10 @@ class ItemService : public Service
 public:
 	void setItems(ItemCollection items);
 
+	void pumpQueue();
+	const ItemConfig& getItemAt(int index) const;
+
 private:
 	ItemCollection items;
+	std::vector<String> itemQueue;
 };

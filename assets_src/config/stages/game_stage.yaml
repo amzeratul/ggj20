@@ -2,6 +2,7 @@
 timelines:
   variableUpdate:
   - Rhythm
+  - Items
   - SpriteAnimation
   - Camera
 

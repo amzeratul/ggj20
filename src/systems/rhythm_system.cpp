@@ -22,10 +22,13 @@ public:
 		world.createEntity()
 			.addComponent(PositionComponent(Vector2f(192, 166)))
 			.addComponent(RhythmAreaComponent(0, 0.0f, 0.5f));
+
+		getRhythmService().start(*getAPI().audio);
 	}
 	
 	void update(Time t)
     {
+		getRhythmService().update(t);
 		for (auto& e: mainFamily) {
 			e.rhythmArea.elapsed += float(t);
 		}

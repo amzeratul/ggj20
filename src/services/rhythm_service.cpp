@@ -2,7 +2,7 @@
 
 void RhythmService::start(AudioAPI& api)
 {
-	music = api.playMusic("music");
+	music = api.playMusic("music0");
 	setCurrentTime(0);
 }
 

@@ -65,6 +65,10 @@ std::unique_ptr<Stage> GGJ20Game::startGame(const HalleyAPI* api)
 	api->video->setWindow(WindowDefinition(WindowType::Window, Vector2i(384, 216) * 3, "GGJ20"));
 	api->video->setVsync(vsync);
 	api->audio->startPlayback();
+
+	api->audio->startPlayback();
+	api->audio->setGroupVolume("music", 1.0f);
+	
 	return std::make_unique<GameStage>();
 }
 
