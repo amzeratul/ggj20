@@ -14,6 +14,8 @@ public:
 	const ItemConfig& getItemAt(int index) const;
 	void popQueue();
 
+	const ItemConfig& getItemConfig(const String id) const;
+
 private:
 	ItemCollection items;
 	std::vector<String> itemQueue;

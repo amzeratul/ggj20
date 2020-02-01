@@ -27,6 +27,11 @@ void ItemService::popQueue()
 	}
 }
 
+const ItemConfig& ItemService::getItemConfig(const String id) const
+{
+	return items.getItem(id);
+}
+
 void ItemService::addNextItem()
 {
 	// TODO

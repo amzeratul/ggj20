@@ -31,6 +31,7 @@ set (HEADERS
 
 	"src/blacksmith_actions.h"
 	"src/item_config.h"
+	"src/item_state.h"
 	"src/game.h"
 	"src/game_stage.h"
 	"src/sprite_layers.h"

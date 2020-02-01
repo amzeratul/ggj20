@@ -39,9 +39,29 @@ system:
 
 ---
 
+type:
+  name: ItemState
+  include: "src/item_state.h"
+
+---
+
+component:
+  name: Item
+  members:
+  - id: int
+  - type: 'Halley::String'
+  - state: ItemState
+
+---
+
 system:
   name: Items
   strategy: global
+  families:
+  - item:
+    - Item: write
+    - Position: write
+    - Sprite: write
   services:
   - RhythmService
   - ItemService

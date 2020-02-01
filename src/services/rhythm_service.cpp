@@ -33,6 +33,11 @@ int RhythmService::getCurrentBeat() const
 	return currentBeat;
 }
 
+int RhythmService::getItemStartBeat() const
+{
+	return itemStartsAt;
+}
+
 int RhythmService::getItemEndBeat() const
 {
 	return itemEndsAt;
@@ -53,6 +58,7 @@ void RhythmService::onNewItem(const ItemConfig& item)
 		Logger::logInfo("Queued " + item.id + " at " + toString(alignedBeat));
 	}
 	queueActions(item.actions, alignedBeat);
+	itemStartsAt = alignedBeat;
 	itemEndsAt = alignedBeat + int(item.actions.size());
 }
 
