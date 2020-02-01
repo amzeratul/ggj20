@@ -16,6 +16,11 @@ system:
     - RhythmArea: write
     - Position: read
   strategy: global
+  services:
+  - RhythmService
+  access:
+  - world
+  - resources
 
 ---
 

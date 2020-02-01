@@ -15,6 +15,7 @@ endif()
 
 set (SOURCES
 	"prec.cpp"
+	
 	"src/game.cpp"
 	"src/game_stage.cpp"
 
@@ -25,6 +26,8 @@ set (SOURCES
 
 set (HEADERS
 	"prec.h"
+
+	"src/blacksmith_actions.h"
 	"src/game.h"
 	"src/game_stage.h"
 	"src/sprite_layers.h"
