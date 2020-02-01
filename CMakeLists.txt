@@ -34,6 +34,7 @@ set (HEADERS
 	"src/item_state.h"
 	"src/game.h"
 	"src/game_stage.h"
+	"src/move_type.h"
 	"src/sprite_layers.h"
 
 	"src/services/input_service.h"

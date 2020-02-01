@@ -35,7 +35,7 @@ private:
 	{
 		Vector2f pos = BlacksmithActionsUtils::actionToPos(action);
 		
-		const float beatLen = 60.0f / getRhythmService().getBPM();
+		const float beatLen = getRhythmService().getBeatLength();
 		getWorld().createEntity()
 			.addComponent(PositionComponent(pos))
 			.addComponent(RhythmAreaComponent(id, -0.5f * beatLen, 1.5f * beatLen));
@@ -45,7 +45,7 @@ private:
 	{
 		// Draw next beat
 		int lookAhead = 2;
-		Logger::logInfo("On beat " + toString(curBeat));
+		//Logger::logInfo("On beat " + toString(curBeat));
 		auto action = getRhythmService().getActionAtBeat(curBeat + lookAhead);
 
 		if (action != BlacksmithActions::Idle) {

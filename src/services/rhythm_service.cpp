@@ -55,7 +55,7 @@ void RhythmService::onNewItem(const ItemConfig& item)
 	if (nextBeat != alignedBeat) {
 		Logger::logWarning("nextBeat and alignedBeat don't match!");
 	} else {
-		Logger::logInfo("Queued " + item.id + " at " + toString(alignedBeat));
+		//Logger::logInfo("Queued " + item.id + " at " + toString(alignedBeat));
 	}
 	queueActions(item.actions, alignedBeat);
 	itemStartsAt = alignedBeat;
@@ -77,4 +77,9 @@ BlacksmithActions RhythmService::getActionAtBeat(int beat) const
 	} else {
 		return BlacksmithActions::Idle;
 	}
+}
+
+float RhythmService::getBeatLength() const
+{
+	return 60.0f / bpm;
 }

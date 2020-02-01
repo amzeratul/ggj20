@@ -11,6 +11,7 @@ public:
 	void update(Time t);
 	
 	float getBPM() const;
+	float getBeatLength() const;
 
 	void setCurrentTime(float time);
 	float getCurrentTime() const;
