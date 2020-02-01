@@ -35,8 +35,10 @@ private:
 		}
 		
 		if (getItemService().updateQueue()) {
-			createItem(getItemService().getItemAt(2));
-			nextStageAll();
+			if (getItemService().isAlive()) {
+				createItem(getItemService().getItemAt(2));
+				nextStageAll();
+			}
 		}
 	}
 
@@ -57,6 +59,10 @@ private:
 
 	void startItem()
 	{
+		if (!getItemService().isAlive()) {
+			return;
+		}
+		
 		for (auto& item: itemFamily) {
 			if (item.item.state == ItemState::CurrentWait) {
 				nextStage(item);
@@ -74,6 +80,10 @@ private:
 
 	void nextStage(ItemFamily& item)
 	{
+		if (!getItemService().isAlive() && item.item.state != ItemState::CurrentActive) {
+			return;
+		}
+		
 		if (item.item.state == ItemState::Out) {
 			// Skip "Failed"
 			item.item.state = ItemState::Dead;

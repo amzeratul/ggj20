@@ -94,6 +94,11 @@ int ItemService::getHealth() const
 	return health;
 }
 
+bool ItemService::isAlive() const
+{
+	return health > 0;
+}
+
 void ItemService::addNextItem()
 {
 	// TODO

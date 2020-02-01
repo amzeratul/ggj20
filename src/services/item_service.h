@@ -25,6 +25,8 @@ public:
 	int getScore() const;
 	int getHealth() const;
 
+	bool isAlive() const;
+
 private:
 	ItemCollection items;
 	std::vector<String> itemQueue;

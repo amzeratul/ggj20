@@ -10,6 +10,11 @@ public:
 			.setFont(getResources().get<Font>("Equipment"))
 			.setSize(16)
 			.setColour(Colour4f(1, 1, 1));
+
+		screen = Sprite()
+			.setImage(getResources(), "whitebox.png")
+			.setColour(Colour4f(0, 0, 0, 0))
+			.scaleTo(Vector2f(384.0f, 216.0f));
 	}
 	
 	void render(RenderContext& rc)
@@ -28,6 +33,15 @@ public:
 private:
 	void paint(Painter& painter)
 	{
+		if (getItemService().isAlive()) {
+			paintGameUI(painter);
+		} else {
+			paintGameOverUI(painter);
+		}
+    }
+
+	void paintGameUI(Painter& painter)
+	{
 		auto& items = getItemService();
 		String scoreStr = toString(items.getScore());
 		String multStr = "x" + toString(items.getMult() / 10) + "." + toString(items.getMult() % 10);
@@ -35,8 +49,15 @@ private:
 		
 		auto text = "Score: " + scoreStr + "\nMult: " + multStr + "\nHP: " + hpStr;
 		font.clone().setPosition(Vector2f(4, 4)).setText(text).draw(painter);
-    }
+	}
 
+	void paintGameOverUI(Painter& painter)
+	{
+		float a = 0.5f;
+		screen.setColour(Colour4f(0, 0, 0, a)).draw(painter);
+	}
+
+	Sprite screen;
 	TextRenderer font;
 };
 
