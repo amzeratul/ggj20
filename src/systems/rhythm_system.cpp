@@ -11,9 +11,9 @@ public:
 	
 	void update(Time t)
     {
-		getRhythmService().update(t);
-
 		updateInput(getInputService().getInput());
+
+		getRhythmService().update(t);
 
 		if (lastBeat != getRhythmService().getCurrentBeat()) {
 			lastBeat = getRhythmService().getCurrentBeat();
@@ -66,7 +66,7 @@ private:
 			// Distance is 0 at the exact time, -1/1 at completely off
 			float distance = 2 * (curTime - beatTime) / getRhythmService().getBeatLength();
 			Logger::logInfo("Distance: " + toString(distance));
-			const float threshold = 0.4f;
+			const float threshold = 0.5f;
 			if (std::abs(distance) < threshold) {
 				// Hit on time
 				BlacksmithActions type = BlacksmithActions::Idle;
