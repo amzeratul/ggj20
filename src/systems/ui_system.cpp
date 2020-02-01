@@ -53,8 +53,16 @@ private:
 
 	void paintGameOverUI(Painter& painter)
 	{
-		float a = 0.5f;
+		float a = 0.8f;
 		screen.setColour(Colour4f(0, 0, 0, a)).draw(painter);
+		font.clone()
+			.setPosition(Vector2f(192, 108))
+			.setText("Game Over!\nYour final score was: " + toString(getItemService().getScore()) + "\n\nPress any Button to restart")
+			.setOutlineColour(Colour4f(0, 0, 0))
+			.setOutline(1.0f)
+			.setAlignment(0.5f)
+			.setOffset(Vector2f(0.0f, 0.5f))
+			.draw(painter);
 	}
 
 	Sprite screen;

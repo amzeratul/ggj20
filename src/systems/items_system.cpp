@@ -133,10 +133,12 @@ private:
 
 	void onBeat()
 	{
-		for (auto& item: itemFamily) {
-			if (item.item.state == ItemState::CurrentActive) {
-				item.position.position = BlacksmithActionsUtils::actionToPos(getRhythmService().getActionAtBeat(getRhythmService().getCurrentBeat()));
-				break;
+		if (getItemService().isAlive()) {
+			for (auto& item: itemFamily) {
+				if (item.item.state == ItemState::CurrentActive) {
+					item.position.position = BlacksmithActionsUtils::actionToPos(getRhythmService().getActionAtBeat(getRhythmService().getCurrentBeat()));
+					break;
+				}
 			}
 		}
 	}
