@@ -24,8 +24,8 @@ private:
 		
 		for (auto& e: mainFamily) {
 			float t = clamp(e.rhythmArea.elapsed / e.rhythmArea.totalTime, 0.0f, 1.0f);
-			float radius = lerp(startRadius, endRadius, t);
-			float opacity = t < 0.2f ? t / 0.2f : 1.0f;
+			float radius = lerp(startRadius, endRadius, t * t);
+			float opacity = t;
 			painter.drawCircle(e.position.position, radius, 2, Colour4f(1, 1, 1, opacity));
 		}
 	}

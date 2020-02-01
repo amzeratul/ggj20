@@ -49,19 +49,21 @@ private:
 			break;
 		}
 		
+		const float beatLen = 60.0f / getRhythmService().getBPM();
 		getWorld().createEntity()
 			.addComponent(PositionComponent(pos))
-			.addComponent(RhythmAreaComponent(id, 0.0f, 60.0f / getRhythmService().getBPM()));
+			.addComponent(RhythmAreaComponent(id, -0.5f * beatLen, 1.5f * beatLen));
 	}
 
 	void onNewBeat(int curBeat)
 	{
 		// Draw next beat
+		int lookAhead = 2;
 		Logger::logInfo("On beat " + toString(curBeat));
-		auto action = getRhythmService().getActionAtBeat(curBeat + 1);
+		auto action = getRhythmService().getActionAtBeat(curBeat + lookAhead);
 
 		if (action != BlacksmithActions::Idle) {
-			createBeatMarker(curBeat + 1, action);
+			createBeatMarker(curBeat + lookAhead, action);
 		}
 	}
 };
