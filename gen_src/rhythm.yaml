@@ -1,11 +1,18 @@
 ---
 
+type:
+  name: BlacksmithActions
+  include: "src/blacksmith_actions.h"
+
+---
+
 component:
   name: RhythmArea
   members:
   - id: int
   - elapsed: float
   - totalTime: float
+  - action: BlacksmithActions
 
 ---
 

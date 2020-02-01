@@ -25,14 +25,16 @@ private:
 		
 		for (auto& e: mainFamily) {
 			float t = clamp(e.rhythmArea.elapsed / e.rhythmArea.totalTime, 0.0f, 1.0f);
-			float radius = lerp(startRadius, endRadius, powf(t, 2.1f));
+			float radius = lerp(startRadius, endRadius, powf(t, 2.1f)) * (e.rhythmArea.action == BlacksmithActions::Idle ? 2.0f : 1.0f);
 			float opacity = pow(t, 2.0f);
-			painter.drawCircle(e.position.position, radius, 2, Colour4f(1, 1, 1, opacity));
+			auto col = e.rhythmArea.action == BlacksmithActions::Idle ? Colour4f(0.5f, 1.0f, 0.5f, opacity) :  Colour4f(1, 1, 1, opacity);
+			painter.drawCircle(e.position.position, radius, 2, col);
 		}
 
-		BlacksmithActions actions[] = {BlacksmithActions::Anvil, BlacksmithActions::Bucket, BlacksmithActions::Furnace, BlacksmithActions::Love};
+		BlacksmithActions actions[] = {BlacksmithActions::Anvil, BlacksmithActions::Bucket, BlacksmithActions::Furnace, BlacksmithActions::Love, BlacksmithActions::Idle};
 		for (auto& a: actions) {
-			painter.drawCircle(BlacksmithActionsUtils::actionToPos(a), endRadius, 2, Colour4f(1, 1, 1, 0.1f));
+			auto col = a == BlacksmithActions::Idle ? Colour4f(0.5f, 1.0f, 0.5f, 0.2f) :  Colour4f(1, 1, 1, 0.2f);
+			painter.drawCircle(BlacksmithActionsUtils::actionToPos(a), endRadius * (a == BlacksmithActions::Idle ? 2.0f : 1.0f), 2, col);
 		}
 	}
 };

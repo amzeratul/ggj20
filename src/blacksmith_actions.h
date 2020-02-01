@@ -23,6 +23,8 @@ public:
 			return Vector2f(192, 50);
 		case BlacksmithActions::Love:
 			return Vector2f(251, 108);
+		case BlacksmithActions::Idle:
+			return Vector2f(192, 108);
 		}
 		return Vector2f(192, 108);
 	}
