@@ -1,0 +1,9 @@
+---
+
+objects:
+  - id: vulcan
+    animation: vulcan
+    layer: smith
+    position: [192, 133]
+
+...

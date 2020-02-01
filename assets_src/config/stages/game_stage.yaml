@@ -1,6 +1,8 @@
 ---
 timelines:
   variableUpdate:
+  - EnvironmentObject
+  
   - Rhythm
   - Items
 

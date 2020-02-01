@@ -72,4 +72,24 @@ system:
   messages:
   - PlayAnimation: receive
 
+---
+
+component:
+  name: EnvironmentObject
+  members:
+  - id: 'Halley::String'
+
+---
+
+system:
+  name: EnvironmentObject
+  families:
+  - object:
+    - EnvironmentObject: read
+    - Sprite: write
+  strategy: global
+  access:
+  - world
+  - resources
+
 ...
