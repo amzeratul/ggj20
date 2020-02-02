@@ -51,4 +51,13 @@ set (HEADERS
 set (GEN_DEFINITIONS
 	)
 
+if (MSVC)
+	set (HEADERS
+		${HEADERS}
+		"res/resource.h"
+		"res/ggj20.rc"
+		"res/ggj20.ico"
+	)
+endif ()
+
 halleyProject(ggj20 "${SOURCES}" "${HEADERS}" "${GEN_DEFINITIONS}" ${CMAKE_CURRENT_SOURCE_DIR}/${GGJ20_BIN_DIR})

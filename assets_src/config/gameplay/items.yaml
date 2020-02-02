@@ -25,22 +25,30 @@ items:
     imageBroken: items/laptop_broken.png
     imageFixed: items/laptop_fixed.png
     actions: "XAXB"
-  - id: rubix
-    imageBroken: items/rubix_broken.png
-    imageFixed: items/rubix_fixed.png
-    actions: "AYAB"
   - id: dog
     imageBroken: items/dog_fixed.png
     imageFixed: items/dog_fixed.png
     actions: "BBBB"
+  - id: rubix
+    imageBroken: items/rubix_broken.png
+    imageFixed: items/rubix_fixed.png
+    actions: "AYAB"
   - id: coffee
     imageBroken: items/coffee_broken.png
     imageFixed: items/coffee_fixed.png
     actions: "AYXB"
+  - id: clock
+    imageBroken: items/watch_fixed.png
+    imageFixed: items/clock_fixed.png
+    actions: "AAXB"
   - id: pizza
     imageBroken: items/pizza_broken.png
     imageFixed: items/pizza_fixed.png
     actions: "YXYB"
+  - id: fish
+    imageBroken: items/fish_broken.png
+    imageFixed: items/fish_fixed.png
+    actions: "AXXB"
   - id: cow
     imageBroken: items/cow_broken.png
     imageFixed: items/cow_fixed.png

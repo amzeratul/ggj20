@@ -193,7 +193,7 @@ static int getMaxItems(int nItemsComplete)
 
 void ItemService::addNextItem()
 {
-	if (stageItemsGenerated >= 25 && difficulty != Difficulty::SuddenDeath) {
+	if (stageItemsGenerated >= 40 && difficulty != Difficulty::SuddenDeath) {
 		itemQueue.push_back("");
 		return;
 	}
