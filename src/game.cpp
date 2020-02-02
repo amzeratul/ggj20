@@ -35,7 +35,7 @@ void GGJ20Game::initResourceLocator(const Path& gamePath, const Path& assetsPath
 	if (localAssets) {
 		locator.addFileSystem(unpackedAssetsPath);
 	} else {
-		const String packs[] = { "gameplay.dat", "images.dat", "shaders.dat", "ui.dat", "config.dat" };
+		const String packs[] = { "music.dat", "sfx.dat", "gameplay.dat", "images.dat", "shaders.dat", "ui.dat", "config.dat" };
 		for (auto& pack: packs) {
 			locator.addPack(Path(assetsPath) / pack);
 		}
@@ -65,9 +65,8 @@ std::unique_ptr<Stage> GGJ20Game::startGame(const HalleyAPI* api)
 
 	auto screenSize = api->system->getScreenSize(0);
 	auto windowSize = Vector2i(1920, 1080);
-	//auto windowType = (screenSize == windowSize) ? WindowType::BorderlessWindow : WindowType::Fullscreen;
 	auto windowType = WindowType::Fullscreen;
-	if constexpr (Debug::isDebug()) {
+	if (screenSize != windowSize || Debug::isDebug()) {
 		windowSize = Vector2i(1920, 1080) / 5 * 4;
 		windowType = WindowType::Window;
 	}
