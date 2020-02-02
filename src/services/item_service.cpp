@@ -112,10 +112,11 @@ bool ItemService::needsRestart() const
 
 void ItemService::addNextItem()
 {
-	const int maxItems = 1 + (nItemsComplete + 5) / 10;
+	const int maxItems = 1 + nItemsComplete / 5;
 
 	const int sz = std::min(maxItems, int(items.getIds().size()));
 	auto& rng = Random::getGlobal();
 	auto id = items.getIds().at(rng.getInt(0, sz - 1));
+
 	itemQueue.push_back(id);
 }
