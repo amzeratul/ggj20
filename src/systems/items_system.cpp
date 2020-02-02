@@ -11,7 +11,7 @@ public:
 		updateQueue();
 		updateVulcanAnimation(BlacksmithActions::Idle);
 
-		getItemService().setMissCallback([this]() { onMiss(); });
+		getItemService().setMissCallback([this](int beat) { onMiss(beat); });
 	}
 	
 	void update(Time t)
@@ -22,7 +22,7 @@ public:
 
 		if (curBeat != getRhythmService().getCurrentBeat()) {
 			curBeat = getRhythmService().getCurrentBeat();
-			onBeat();
+			onBeat(curBeat);
 		}
 	}
 
@@ -135,15 +135,20 @@ private:
 		}
 	}
 
-	void onBeat()
+	void onBeat(int beat)
 	{
 		if (getItemService().isAlive()) {
 			for (auto& item: itemFamily) {
 				if (item.item.state == ItemState::CurrentActive) {
 					const auto curAction = getRhythmService().getActionAtBeat(getRhythmService().getCurrentBeat());
 					item.position.position = BlacksmithActionsUtils::actionToPos(curAction);
-					updateVulcanAnimation(curAction);
-					playActionSound(curAction);
+
+					if (beat != beatMiss) {
+						updateVulcanAnimation(curAction);
+						playActionSound(curAction);
+					} else {
+						updateVulcanAnimation(BlacksmithActions::Fail);
+					}
 					break;
 				}
 			}
@@ -163,6 +168,8 @@ private:
 			return "idle";
 		case BlacksmithActions::Love:
 			return "love";
+		case BlacksmithActions::Fail:
+			return "fail";
 		}
 		return "";
 	}
@@ -221,11 +228,17 @@ private:
 		getItemService().onItemDone(itemConfig.id, itemOK);
 	}
 
-	void onMiss()
+	void onMiss(int beat)
 	{
-		lastSound->stop();
+		beatMiss = beat;
+		if (lastSound) {
+			lastSound->stop();
+			lastSound = {};
+		}
+		updateVulcanAnimation(BlacksmithActions::Fail);
 	}
 
+	int beatMiss = -1;
 	int curBeat = -1;
 	int nextItemId = 0;
 	bool itemOK = false;

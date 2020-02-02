@@ -8,7 +8,8 @@ enum class BlacksmithActions {
     Anvil = 0,
     Love = 1,
     Furnace = 2,
-    Bucket = 3
+    Bucket = 3,
+	Fail = 4
 };
 
 class BlacksmithActionsUtils {

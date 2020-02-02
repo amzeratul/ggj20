@@ -6,6 +6,10 @@ void TitleStage::init()
 {
 	getAudioAPI().stopAllMusic(0.5f);
 	titleScreen.setImage(getResources(), "title.png");
+
+	getResources().get<AudioClip>("music/music_mainloop_100_4_4.ogg");
+	getResources().get<AudioClip>("music/music_mainloop_120_4_4.ogg");
+	getResources().get<AudioClip>("music/music_mainloop_140_4_4.ogg");
 }
 
 void TitleStage::onVariableUpdate(Time)

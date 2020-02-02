@@ -81,7 +81,7 @@ private:
 	{
 		// Missed beat?
 		if (getRhythmService().hasMissedBeat(curBeat)) {
-			onIncorrectInput();
+			onIncorrectInput(curBeat);
 			getRhythmService().onBeatMiss(curBeat);
 		}
 	}
@@ -111,20 +111,20 @@ private:
 				
 				bool correct = getRhythmService().onBeatInput(closest, type);
 				if (!correct) {
-					onIncorrectInput();
+					onIncorrectInput(closest);
 				}
 			} else {
 				// Hit out of time
 				getRhythmService().onBeatMiss(closest);
-				onIncorrectInput();
+				onIncorrectInput(closest);
 			}
 		}
 	}
 
-	void onIncorrectInput()
+	void onIncorrectInput(int beat)
 	{
 		// TODO: sound/visual feedback
-		getItemService().onMiss();
+		getItemService().onMiss(beat);
 		getUIService().showMessage("Missed!", 1.0f);
 	}
 };

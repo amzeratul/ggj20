@@ -58,13 +58,13 @@ void ItemService::onItemDone(const String& id, bool itemOK)
 	itemLevels[id] = newLevel;
 }
 
-void ItemService::onMiss()
+void ItemService::onMiss(int beat)
 {
 	mult = 10;
 	health = clamp(health - 1, 0, 10);
 
 	if (callback) {
-		callback();
+		callback(beat);
 	}
 }
 

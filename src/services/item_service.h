@@ -8,7 +8,7 @@ using namespace Halley;
 class ItemService : public Service
 {
 public:
-	using MissCallback = std::function<void()>;
+	using MissCallback = std::function<void(int)>;
 	
 	void setItems(ItemCollection items);
 
@@ -20,7 +20,7 @@ public:
 
 	int getItemLevel(const String& id) const;
 	void onItemDone(const String& id, bool itemOK);
-	void onMiss();
+	void onMiss(int beat);
 
 	int getItemMult(int level) const;
 	int getMult() const;
