@@ -2,6 +2,7 @@
 #include "src/sprite_layers.h"
 #include "components/move_animation_component.h"
 #include "components/bouncy_component.h"
+#include "components/particle_component.h"
 
 using namespace Halley;
 
@@ -192,6 +193,23 @@ private:
 				v.spriteAnimation.player.setSequence(getActionName(action));
 				v.environmentObject.animTarget = "idle";
 				v.environmentObject.animTime = getRhythmService().getBeatLength() * 0.7f;
+			}
+		}
+
+		if (action == BlacksmithActions::Anvil || action == BlacksmithActions::Bucket || action == BlacksmithActions::Love || action == BlacksmithActions::Furnace) {
+			auto& rng = Random::getGlobal();
+			String animName = getActionName(action) + "_part";
+			
+			for (size_t i = 0; i < 3; ++i) {
+				const auto pos = BlacksmithActionsUtils::actionToPos(action) + Vector2f(rng.getFloat(0, 10), 0).rotate(Angle1f::fromRadians(rng.getFloat(0, 2 * 3.14159265f)));
+				Vector2f vel = Vector2f(rng.getFloat(50, 100), 0).rotate(Angle1f::fromRadians(rng.getFloat(0, 2 * 3.14159265f)));
+				auto e = getWorld().createEntity()
+					.addComponent(PositionComponent(pos))
+					.addComponent(ParticleComponent(vel))
+					.addComponent(SpriteComponent(Sprite(), int(SpriteLayers::Particles), 1))
+					.addComponent(SpriteAnimationComponent(AnimationPlayer(getResources().get<Animation>(animName))));
+
+				e.getComponent<SpriteAnimationComponent>().player.playOnce("move");
 			}
 		}
 	}

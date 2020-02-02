@@ -8,6 +8,7 @@ timelines:
 
   - GameState
   - Move
+  - Particle
 
   - SpriteAnimation
   - Camera

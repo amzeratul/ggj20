@@ -10,6 +10,7 @@ public:
 	{
 		getItemService().startStage();
 		setDifficulty(getItemService().getDifficulty());
+		getAPI().audio->playMusic("sfx/ambience", 1);
 	}
 
 	void update(Time t)

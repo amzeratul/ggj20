@@ -1,0 +1,21 @@
+---
+
+component:
+  name: Particle
+  members:
+  - vel: 'Halley::Vector2f'
+
+---
+
+system:
+  name: Particle
+  families:
+  - particle:
+    - Particle: write
+    - Position: write
+    - SpriteAnimation: write
+  strategy: global
+  access:
+  - world
+
+...
