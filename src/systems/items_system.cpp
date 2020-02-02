@@ -185,9 +185,9 @@ private:
 		case ItemState::QueueFront:
 			return Vector2f(35, 110);
 		case ItemState::CurrentWait:
-			return Vector2f(80, 110);
+			return Vector2f(80, 120);
 		case ItemState::Done:
-			return Vector2f(325, 110);
+			return Vector2f(338, 120);
 		case ItemState::Failed:
 			return Vector2f(192, 300);
 		case ItemState::Out:
