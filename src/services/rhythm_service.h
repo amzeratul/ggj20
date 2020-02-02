@@ -3,11 +3,12 @@
 #include <halley.hpp>
 #include "src/blacksmith_actions.h"
 #include "src/item_config.h"
+#include "src/game_state.h"
 using namespace Halley;
 
 class RhythmService : public Service {
 public:
-	void start(AudioAPI& api);
+	void start(Difficulty difficulty, AudioAPI& api);
 	void update(Time t);
 	
 	float getBPM() const;

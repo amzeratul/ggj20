@@ -1,8 +1,22 @@
 #include "rhythm_service.h"
 
-void RhythmService::start(AudioAPI& api)
+void RhythmService::start(Difficulty difficulty, AudioAPI& api)
 {
-	music = api.playMusic("music/music0");
+	switch (difficulty) {
+	case Difficulty::Easy:
+		music = api.playMusic("music/music0");
+		bpm = 100;
+		break;
+	case Difficulty::Normal:
+		music = api.playMusic("music/music1");
+		bpm = 120;
+		break;
+	case Difficulty::Hard:
+		music = api.playMusic("music/music2");
+		bpm = 140;
+		break;
+	}
+	
 	setCurrentTime(0);
 }
 

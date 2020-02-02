@@ -1,7 +1,7 @@
 ---
 actions:
   - type: play
-    clips: [ music/music_mainloop_100_4_4.ogg ]
+    clips: [ music/music_mainloop_140_4_4.ogg ]
     group: music
     loop: true
 ...

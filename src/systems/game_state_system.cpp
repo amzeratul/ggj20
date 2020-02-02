@@ -7,7 +7,7 @@ class GameStateSystem final : public GameStateSystemBase<GameStateSystem> {
 public:
 	void init()
 	{
-		getRhythmService().start(*getAPI().audio);
+		getRhythmService().start(Difficulty::Easy, *getAPI().audio);
 	}
 
 	void update(Time t)
