@@ -95,4 +95,9 @@ float GGJ20Game::getZoom() const
 	return zoom;
 }
 
+bool GGJ20Game::shouldCreateSeparateConsole() const
+{
+	return Debug::isDebug();
+}
+
 HalleyGame(GGJ20Game);

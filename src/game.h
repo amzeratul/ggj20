@@ -18,6 +18,8 @@ public:
 	std::shared_ptr<InputService> getInputService() const;
 	float getZoom() const;
 
+	bool shouldCreateSeparateConsole() const override;
+
 private:
 	const HalleyAPI* api = nullptr;
 	float zoom = 3;
