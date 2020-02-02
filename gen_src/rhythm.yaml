@@ -22,8 +22,8 @@ system:
   - main:
     - RhythmArea: write
     - Position: read
-  - envObjects:
-    - EnvironmentObject: write
+  - bouncy:
+    - Bouncy: write
   strategy: global
   services:
   - RhythmService

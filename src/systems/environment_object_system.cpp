@@ -22,7 +22,10 @@ public:
 					e.environmentObject.animTarget = "";
 				}
 			}
-			e.sprite.sprite.setScale(1.0f + std::cos(e.environmentObject.bounceTime * 2 * 3.14159265f) * 0.05f * e.environmentObject.bounceAmplitude);
+			
+		}
+		for (auto& e: bouncyFamily) {
+			e.sprite.sprite.setScale(1.0f + std::cos(e.bouncy.bounceTime * 2 * 3.14159265f) * 0.05f * e.bouncy.bounceAmplitude);
 		}
 	}
 
@@ -49,7 +52,8 @@ private:
 				.addComponent(SpriteComponent(Sprite(), int(layer), 1))
 				.addComponent(SpriteAnimationComponent(AnimationPlayer(getResources().get<Animation>(anim))))
 				.addComponent(PositionComponent(pos))
-				.addComponent(EnvironmentObjectComponent(id, 0, "", 0, amplitude));
+				.addComponent(EnvironmentObjectComponent(id, 0, ""))
+				.addComponent(BouncyComponent(0, amplitude));
 		}
 	}
 };

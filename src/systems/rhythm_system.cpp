@@ -33,8 +33,8 @@ public:
 		}
 
 		float bounceTime = (getRhythmService().getCurrentTime() - curBeatTime) / beatLength;
-		for (auto& e: envObjectsFamily) {
-			e.environmentObject.bounceTime = bounceTime;
+		for (auto& e: bouncyFamily) {
+			e.bouncy.bounceTime = bounceTime;
 		}
 	}
 

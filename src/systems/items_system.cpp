@@ -1,6 +1,7 @@
 #include <systems/items_system.h>
 #include "src/sprite_layers.h"
 #include "components/move_animation_component.h"
+#include "components/bouncy_component.h"
 
 using namespace Halley;
 
@@ -57,7 +58,8 @@ private:
 			.addComponent(PositionComponent(startPos))
 			.addComponent(SpriteComponent(Sprite().setImage(getResources(), itemConfig.imageBroken).setPivot(Vector2f(0.5f, 0.5f)), int(SpriteLayers::Items), 1))
 			.addComponent(ItemComponent(itemId, itemConfig.id, ItemState::QueueBack))
-			.addComponent(MoveAnimationComponent(true, startPos, endPos, getRhythmService().getBeatLength(), 0, MoveType::Conveyour));
+			.addComponent(MoveAnimationComponent(true, startPos, endPos, getRhythmService().getBeatLength(), 0, MoveType::Conveyour))
+			.addComponent(BouncyComponent(0, 1));
 	}
 
 	void startItem()
