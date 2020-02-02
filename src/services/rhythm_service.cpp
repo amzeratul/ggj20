@@ -147,6 +147,7 @@ void RhythmService::onBeatMiss(int beat)
 	if (beat >= 0 && beat < int(playerInputRegistered.size())) {
 		playerInputRegistered.at(beat) = 1;
 	}
+	currentItemOK = false;
 }
 
 bool RhythmService::hasMissedBeat(int beat)
