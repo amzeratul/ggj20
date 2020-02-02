@@ -38,7 +38,7 @@ objects:
     bounce: 0
   - id: bg
     animation: bg
-    layer: background
+    layer: floor
     position: [0, 0]
     bounce: .3
 ...
