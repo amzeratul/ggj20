@@ -19,6 +19,8 @@ public:
 	
 	void update(Time t)
     {
+		getUIService().update(t);
+		
 		UiFamily& healthBar = uiFamily.match([](const UiFamily& e) { return e.uI.id == "health"; });
 		healthBar.spriteAnimation.player.setSequence(toString(getItemService().getHealth() * 10) + "%");
 	}

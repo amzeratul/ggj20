@@ -6,6 +6,7 @@
 #include "sprite_layers.h"
 #include "services/rhythm_service.h"
 #include "services/item_service.h"
+#include "services/ui_service.h"
 
 void GameStage::init()
 {
@@ -21,6 +22,7 @@ void GameStage::init()
 	world->addService(inputService);
 	world->addService(rhythmService);
 	world->addService(itemService);
+	world->addService(std::make_shared<UIService>());
 
 	world->createEntity()
 		.addComponent(SpriteComponent(Sprite().setImage(getResources(), "background.png"), int(SpriteLayers::Background), 1))

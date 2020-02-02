@@ -24,6 +24,7 @@ set (SOURCES
 	"src/services/item_service.cpp"
 	"src/services/painter_service.cpp"
 	"src/services/rhythm_service.cpp"
+	"src/services/ui_service.cpp"
 	)
 
 set (HEADERS
@@ -42,6 +43,7 @@ set (HEADERS
 	"src/services/item_service.h"
 	"src/services/painter_service.h"
 	"src/services/rhythm_service.h"
+	"src/services/ui_service.h"
 	)
 
 set (GEN_DEFINITIONS

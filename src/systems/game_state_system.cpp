@@ -7,7 +7,7 @@ class GameStateSystem final : public GameStateSystemBase<GameStateSystem> {
 public:
 	void init()
 	{
-		getRhythmService().start(Difficulty::Easy, *getAPI().audio);
+		setDifficulty(Difficulty::Easy);
 	}
 
 	void update(Time t)
@@ -46,6 +46,27 @@ private:
 	void onLose()
 	{
 		getAPI().audio->stopAllMusic(1.0f);
+	}
+
+	void setDifficulty(Difficulty difficulty)
+	{
+		getRhythmService().start(difficulty, *getAPI().audio);
+		String msg;
+		switch (difficulty) {
+		case Difficulty::Easy:
+			msg = "Stage 1";
+			break;
+		case Difficulty::Normal:
+			msg = "Stage 2";
+			break;
+		case Difficulty::Hard:
+			msg = "Stage 3";
+			break;
+		case Difficulty::SuddenDeath:
+			msg = "Sudden Death!";
+			break;
+		}
+		getUIService().showImportantMessage(msg, 2.0f);
 	}
 };
 

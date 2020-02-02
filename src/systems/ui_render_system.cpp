@@ -45,12 +45,26 @@ private:
 
 	void paintGameUI(Painter& painter)
 	{
+		// Current message
+		if (!getUIService().getMessage().isEmpty()) {		
+			font.clone()
+				.setPosition(Vector2f(192, 30))
+				.setText(getUIService().getMessage())
+				.setColour(getUIService().getColour())
+				.setOutline(1.0f)
+				.setOutlineColour(getUIService().getOutColour())
+				.setAlignment(0.5f)
+				.draw(painter);
+		}
+		
+		// Progress data
 		auto& items = getItemService();
 		String scoreStr = toString(items.getScore());
 		String multStr = "x" + toString(items.getMult() / 10) + "." + toString(items.getMult() % 10);
 		String hpStr = toString(items.getHealth());
 		
-		auto text = "Score: " + scoreStr + "\nMult: " + multStr + "\nHP: " + hpStr;
+		// Debug text
+		auto text = "Score: " + scoreStr + "\nMult: " + multStr;
 		font.clone().setPosition(Vector2f(380, 4)).setText(text).setAlignment(1.0f).draw(painter);
 	}
 
