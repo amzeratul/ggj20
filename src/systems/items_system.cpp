@@ -201,8 +201,14 @@ private:
 	{	
 		if (itemOK) {
 			item.sprite.sprite.setImage(getResources(), itemConfig.imageFixed).setPivot(Vector2f(0.5f, 0.5f));
+			if (item.item.type == "dog") {
+				getUIService().showMessage("Dog is already perfect!", 1.0f);
+			} else {
+				getUIService().showMessage("Item repaired!", 1.0f);
+			}
 		} else {
 			item.item.state = ItemState::Failed;
+			getUIService().showMessage("Repair failed", 1.0f);
 		}
 		getItemService().onItemDone(itemConfig.id, itemOK);
 	}

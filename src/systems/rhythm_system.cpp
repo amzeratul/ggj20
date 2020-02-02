@@ -101,6 +101,7 @@ private:
 	{
 		// TODO: sound/visual feedback
 		getItemService().onMiss();
+		getUIService().showMessage("Missed!", 1.0f);
 	}
 };
 
