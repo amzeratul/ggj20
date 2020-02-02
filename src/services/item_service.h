@@ -42,6 +42,7 @@ public:
 	void setDifficulty(Difficulty difficulty);
 
 	void startStage();
+	void endStage();
 	bool isStageDone() const;
 	int getQueueSize() const;
 
@@ -60,6 +61,7 @@ private:
 	int nItemsComplete = 0;
 	int stageItemsGenerated = 0;
 
+	bool stageDone = false;
 	bool restart = false;
 	Difficulty difficulty = Difficulty::Easy;
 

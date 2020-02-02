@@ -157,11 +157,18 @@ void ItemService::setDifficulty(Difficulty diff)
 void ItemService::startStage()
 {
 	stageItemsGenerated = 0;
+	stageDone = false;
+	itemQueue.clear();
+}
+
+void ItemService::endStage()
+{
+	stageDone = true;
 }
 
 bool ItemService::isStageDone() const
 {
-	return itemQueue.at(0).isEmpty();
+	return stageDone;
 }
 
 int ItemService::getQueueSize() const
@@ -186,7 +193,7 @@ static int getMaxItems(int nItemsComplete)
 
 void ItemService::addNextItem()
 {
-	if (stageItemsGenerated >= 5 && difficulty != Difficulty::SuddenDeath) {
+	if (stageItemsGenerated >= 3 && difficulty != Difficulty::SuddenDeath) {
 		itemQueue.push_back("");
 		return;
 	}

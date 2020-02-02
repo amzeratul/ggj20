@@ -83,6 +83,9 @@ private:
 		for (auto& item: itemFamily) {
 			nextStage(item);
 		}
+		if (itemFamily.size() == 0) {
+			getItemService().endStage();
+		}
 	}
 
 	void nextStage(ItemFamily& item)

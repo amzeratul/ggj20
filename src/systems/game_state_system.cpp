@@ -8,6 +8,7 @@ class GameStateSystem final : public GameStateSystemBase<GameStateSystem> {
 public:
 	void init()
 	{
+		getItemService().startStage();
 		setDifficulty(getItemService().getDifficulty());
 	}
 
@@ -16,7 +17,9 @@ public:
 		stateTime += t;
 		
 		if (gameState == GameState::Play) {
-			if (!getItemService().isAlive()) {
+			if (getItemService().isStageDone()) {
+				setState(GameState::Done);
+			} else if (!getItemService().isAlive()) {
 				setState(GameState::Lose);
 			}
 		}
@@ -26,6 +29,12 @@ public:
 				if (getInputService().getInput().isAnyButtonPressed()) {
 					getItemService().flagRestart();
 				}
+			}
+		}
+
+		if (gameState == GameState::Done) {
+			if (stateTime > 1.0f) {
+				nextLevel();
 			}
 		}
 	}
