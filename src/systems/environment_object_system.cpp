@@ -39,6 +39,10 @@ private:
 			auto layer = SpriteLayers::BackgroundObject;
 			if (layerName == "smith") {
 				layer = SpriteLayers::Smith;
+			} else if (layerName == "floor") {
+				layer = SpriteLayers::Floor;
+			} else if (layerName == "wall") {
+				layer = SpriteLayers::Wall;
 			}
 
 			getWorld().createEntity()
