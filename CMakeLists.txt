@@ -19,6 +19,7 @@ set (SOURCES
 	"src/item_config.cpp"
 	"src/game.cpp"
 	"src/game_stage.cpp"
+	"src/title_stage.cpp"
 
 	"src/services/input_service.cpp"
 	"src/services/item_service.cpp"
@@ -38,6 +39,7 @@ set (HEADERS
 	"src/game_state.h"
 	"src/move_type.h"
 	"src/sprite_layers.h"
+	"src/title_stage.h"
 
 	"src/services/input_service.h"
 	"src/services/item_service.h"

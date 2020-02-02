@@ -15,16 +15,28 @@ items:
     actions: "XXXB"
   - id: knife
     imageBroken: items/knife_broken.png
-    imageFixed: items/knife_broken.png
+    imageFixed: items/knife_fixed.png
     actions: "XYYB"
+  - id: watch
+    imageBroken: items/watch_broken.png
+    imageFixed: items/watch_fixed.png
+    actions: "AABB"
   - id: laptop
     imageBroken: items/laptop_broken.png
     imageFixed: items/laptop_fixed.png
     actions: "XAXB"
+  - id: rubix
+    imageBroken: items/rubix_broken.png
+    imageFixed: items/rubix_fixed.png
+    actions: "AYAB"
   - id: dog
     imageBroken: items/dog_fixed.png
     imageFixed: items/dog_fixed.png
     actions: "BBBB"
+  - id: coffee
+    imageBroken: items/coffee_broken.png
+    imageFixed: items/coffee_fixed.png
+    actions: "AYXB"
   - id: pizza
     imageBroken: items/pizza_broken.png
     imageFixed: items/pizza_fixed.png

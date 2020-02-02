@@ -26,7 +26,7 @@ private:
 
 			float t = clamp(e.rhythmArea.elapsed / e.rhythmArea.totalTime, 0.0f, 1.0f);
 			float radius = lerp(startRadius, endRadius, powf(t, 2.1f));
-			float opacity = pow(t, 2.0f);
+			float opacity = pow(t, 3.0f);
 			auto col = e.rhythmArea.action == BlacksmithActions::Idle ? Colour4f(0.5f, 1.0f, 0.5f, opacity) :  Colour4f(1, 1, 1, opacity);
 			auto col2 = col;
 			col2.a = 0.35f;

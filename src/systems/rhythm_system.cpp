@@ -10,9 +10,17 @@ public:
 
 		getRhythmService().update(t);
 
-		if (lastBeat != getRhythmService().getCurrentBeat()) {
-			lastBeat = getRhythmService().getCurrentBeat();
-			onNewBeat(lastBeat);
+		const int curBeat = getRhythmService().getCurrentBeat();
+		const float curBeatTime = getRhythmService().getBeatTime(curBeat);
+		const float beatLength = getRhythmService().getBeatLength();
+
+		if (lastBeat != curBeat) {
+			lastBeat = curBeat;
+			onNewBeat(curBeat);
+		}
+		if (lastHalfBeat != curBeat && getRhythmService().getCurrentTime() > curBeatTime + beatLength * 0.55f) {
+			lastHalfBeat = curBeat;
+			onNewHalfBeat(curBeat);
 		}
 		
 		for (auto& e: mainFamily) {
@@ -24,7 +32,7 @@ public:
 			}
 		}
 
-		float bounceTime = (getRhythmService().getCurrentTime() - getRhythmService().getBeatTime(getRhythmService().getCurrentBeat())) / getRhythmService().getBeatLength();
+		float bounceTime = (getRhythmService().getCurrentTime() - curBeatTime) / beatLength;
 		for (auto& e: envObjectsFamily) {
 			e.environmentObject.bounceTime = bounceTime;
 		}
@@ -32,6 +40,7 @@ public:
 
 private:
 	int lastBeat = -1;
+	int lastHalfBeat = -1;
 
 	void createBeatMarker(int id, BlacksmithActions action)
 	{
@@ -62,14 +71,18 @@ private:
 			createBeatMarker(curBeat + lookAhead, action);
 		}
 
-		// Missed last beat?
-		if (getRhythmService().hasMissedBeat(curBeat - 1)) {
-			onIncorrectInput();
-		}
-
 		int timeToNext = getRhythmService().getTimeToNextAction(curBeat);
 		if (timeToNext > 0) {
 			getUIService().showMessage(toString(timeToNext), getRhythmService().getBeatLength() + 0.05f);
+		}
+	}
+
+	void onNewHalfBeat(int curBeat)
+	{
+		// Missed beat?
+		if (getRhythmService().hasMissedBeat(curBeat)) {
+			onIncorrectInput();
+			getRhythmService().onBeatMiss(curBeat);
 		}
 	}
 

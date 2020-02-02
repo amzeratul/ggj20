@@ -112,31 +112,7 @@ bool ItemService::needsRestart() const
 
 static int getMaxItems(int nItemsComplete)
 {
-	if (nItemsComplete < 5) {
-		return 1;
-	}
-	if (nItemsComplete < 15) {
-		return 2;
-	}
-	if (nItemsComplete < 25) {
-		return 3;
-	}
-	if (nItemsComplete < 40) {
-		return 4;
-	}
-	if (nItemsComplete < 55) {
-		return 5;
-	}
-	if (nItemsComplete < 70) {
-		return 6;
-	}
-	if (nItemsComplete < 85) {
-		return 7;
-	}
-	if (nItemsComplete < 100) {
-		return 8;
-	}
-	return 999;
+	return 1 + (nItemsComplete + 5) / 10;
 }
 
 void ItemService::addNextItem()

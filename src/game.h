@@ -1,6 +1,7 @@
 #pragma once
 
 #include <halley.hpp>
+#include "services/input_service.h"
 using namespace Halley;
 
 class GGJ20Game : public Game {
@@ -14,6 +15,12 @@ public:
 	bool isDevMode() const override;
 	std::unique_ptr<Stage> startGame(const HalleyAPI* api) override;
 
+	std::shared_ptr<InputService> getInputService() const;
+	float getZoom() const;
+
 private:
-	const HalleyAPI* api;
+	const HalleyAPI* api = nullptr;
+	float zoom = 3;
+	
+	std::shared_ptr<InputService> inputService;
 };

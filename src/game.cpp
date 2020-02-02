@@ -1,5 +1,6 @@
 #include "game.h"
 #include "game_stage.h"
+#include "title_stage.h"
 
 void initOpenGLPlugin(IPluginRegistry &registry);
 void initSDLSystemPlugin(IPluginRegistry &registry, Maybe<String> cryptKey);
@@ -30,7 +31,7 @@ int GGJ20Game::initPlugins(IPluginRegistry& registry)
 }
 
 void GGJ20Game::initResourceLocator(const Path& gamePath, const Path& assetsPath, const Path& unpackedAssetsPath, ResourceLocator& locator) {
-	constexpr bool localAssets = true;
+	constexpr bool localAssets = Debug::isDebug();
 	if (localAssets) {
 		locator.addFileSystem(unpackedAssetsPath);
 	} else {
@@ -62,14 +63,37 @@ std::unique_ptr<Stage> GGJ20Game::startGame(const HalleyAPI* api)
 
 	bool vsync = true;
 
-	api->video->setWindow(WindowDefinition(WindowType::Window, Vector2i(384, 216) * 3, "GGJ20"));
+	auto screenSize = api->system->getScreenSize(0);
+	auto windowSize = Vector2i(1920, 1080);
+	//auto windowType = (screenSize == windowSize) ? WindowType::BorderlessWindow : WindowType::Fullscreen;
+	auto windowType = WindowType::Fullscreen;
+	if constexpr (Debug::isDebug()) {
+		windowSize = Vector2i(1920, 1080) / 5 * 4;
+		windowType = WindowType::Window;
+	}
+	
+	zoom = std::max(float(windowSize.x) / 384.0f, float(windowSize.y) / 216.0f);
+	
+	api->video->setWindow(WindowDefinition(windowType, windowSize, "Law of the Instrument"));
 	api->video->setVsync(vsync);
 	api->audio->startPlayback();
 
 	api->audio->setGroupVolume("music", 1.0f);
 	api->audio->setListener(AudioListenerData(Vector3f(192, 108, -20), 200));
-	
-	return std::make_unique<GameStage>();
+
+	inputService = std::make_shared<InputService>(*api->input);
+
+	return std::make_unique<TitleStage>();
+}
+
+std::shared_ptr<InputService> GGJ20Game::getInputService() const
+{
+	return inputService;
+}
+
+float GGJ20Game::getZoom() const
+{
+	return zoom;
 }
 
 HalleyGame(GGJ20Game);
