@@ -1,0 +1,7 @@
+---
+actions:
+  - type: play
+    clips: [ sfx/ambience.ogg ]
+    group: sfx
+    loop: true
+...
