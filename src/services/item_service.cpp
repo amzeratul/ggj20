@@ -62,6 +62,10 @@ void ItemService::onMiss()
 {
 	mult = 10;
 	health = clamp(health - 1, 0, 10);
+
+	if (callback) {
+		callback();
+	}
 }
 
 int ItemService::getItemMult(int level) const
@@ -108,6 +112,11 @@ void ItemService::flagRestart()
 bool ItemService::needsRestart() const
 {
 	return restart;
+}
+
+void ItemService::setMissCallback(MissCallback c)
+{
+	callback = c;
 }
 
 static int getMaxItems(int nItemsComplete)

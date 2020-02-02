@@ -10,6 +10,8 @@ public:
 	{
 		updateQueue();
 		updateVulcanAnimation(BlacksmithActions::Idle);
+
+		getItemService().setMissCallback([this]() { onMiss(); });
 	}
 	
 	void update(Time t)
@@ -178,7 +180,7 @@ private:
 
 	void playActionSound(BlacksmithActions action)
 	{
-		getAPI().audio->postEvent("sfx/" + getActionName(action), AudioPosition::makeFixed());
+		lastSound = getAPI().audio->postEvent("sfx/" + getActionName(action), AudioPosition::makeFixed());
 	}
 
 	static Vector2f getItemPos(ItemState state)
@@ -219,9 +221,15 @@ private:
 		getItemService().onItemDone(itemConfig.id, itemOK);
 	}
 
+	void onMiss()
+	{
+		lastSound->stop();
+	}
+
 	int curBeat = -1;
 	int nextItemId = 0;
 	bool itemOK = false;
+	AudioHandle lastSound;
 };
 
 REGISTER_SYSTEM(ItemsSystem)

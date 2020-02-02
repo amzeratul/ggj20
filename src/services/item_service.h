@@ -8,6 +8,8 @@ using namespace Halley;
 class ItemService : public Service
 {
 public:
+	using MissCallback = std::function<void()>;
+	
 	void setItems(ItemCollection items);
 
 	bool updateQueue();
@@ -30,6 +32,8 @@ public:
 	void flagRestart();
 	bool needsRestart() const;
 
+	void setMissCallback(MissCallback callback);
+
 private:
 	ItemCollection items;
 	std::vector<String> itemQueue;
@@ -42,6 +46,8 @@ private:
 	int nItemsComplete = 0;
 
 	bool restart = false;
+
+	MissCallback callback;
 
 	void addNextItem();
 };
