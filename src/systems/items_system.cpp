@@ -40,7 +40,9 @@ private:
 		
 		if (getItemService().updateQueue()) {
 			if (getItemService().isAlive()) {
-				createItem(getItemService().getItemAt(2));
+				if (getItemService().canSpawnItem()) {
+					createItem(getItemService().getItemAt(0));
+				}
 				nextStageAll();
 			}
 		}

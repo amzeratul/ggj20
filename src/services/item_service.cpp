@@ -20,6 +20,11 @@ bool ItemService::updateQueue()
 	return changed;
 }
 
+bool ItemService::canSpawnItem() const
+{
+	return !itemQueue.empty() && !itemQueue[0].isEmpty();
+}
+
 const ItemConfig& ItemService::getItemAt(int index) const
 {
 	return items.getItem(itemQueue.at(index));
@@ -46,13 +51,28 @@ int ItemService::getItemLevel(const String& id) const
 	return 0;
 }
 
+static int getBaseItemScore(Difficulty difficulty)
+{
+	switch (difficulty) {
+	case Difficulty::Easy:
+		return 10;
+	case Difficulty::Normal:
+		return 20;
+	case Difficulty::Hard:
+		return 30;
+	case Difficulty::SuddenDeath:
+		return 50;
+	}
+	return 10;
+}
+
 void ItemService::onItemDone(const String& id, bool itemOK)
 {
 	const int curLevel = getItemLevel(id);
 	const int newLevel = clamp((itemOK ? curLevel + 1 : curLevel - 1), 0, 3);
 
 	if (itemOK) {
-		score += (getItemMult(curLevel) * mult + 5) / 10;
+		score += getBaseItemScore(difficulty) * (getItemMult(curLevel) * mult + 5) / 10;
 		mult = clamp(mult + 1, 10, 40);
 		health = clamp(health + 1, 0, 10);
 	} else {
@@ -66,7 +86,7 @@ void ItemService::onItemDone(const String& id, bool itemOK)
 void ItemService::onMiss(int beat)
 {
 	mult = 10;
-	health = clamp(health - 1, 0, 10);
+	health = clamp(health - (difficulty == Difficulty::SuddenDeath ? 10 : 1), 0, 10);
 
 	if (callback) {
 		callback(beat);
@@ -134,6 +154,21 @@ void ItemService::setDifficulty(Difficulty diff)
 	difficulty = diff;
 }
 
+void ItemService::startStage()
+{
+	stageItemsGenerated = 0;
+}
+
+bool ItemService::isStageDone() const
+{
+	return itemQueue.at(0).isEmpty();
+}
+
+int ItemService::getQueueSize() const
+{
+	return int(itemQueue.size());
+}
+
 static int getMaxItems(int nItemsComplete)
 {
 	return 1 + (nItemsComplete + 5) / 10;
@@ -141,9 +176,15 @@ static int getMaxItems(int nItemsComplete)
 
 void ItemService::addNextItem()
 {
+	if (stageItemsGenerated >= 5 && difficulty != Difficulty::SuddenDeath) {
+		itemQueue.push_back("");
+		return;
+	}
+	
 	const int sz = std::min(getMaxItems(nItemsComplete), int(items.getIds().size()));
 	auto& rng = Random::getGlobal();
 	auto id = items.getIds().at(rng.getInt(0, sz - 1));
 
 	itemQueue.push_back(id);
+	stageItemsGenerated++;
 }

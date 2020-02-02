@@ -16,6 +16,7 @@ public:
 	void setItems(ItemCollection items);
 
 	bool updateQueue();
+	bool canSpawnItem() const;
 	const ItemConfig& getItemAt(int index) const;
 	void popQueue();
 
@@ -40,6 +41,10 @@ public:
 	Difficulty getDifficulty() const;
 	void setDifficulty(Difficulty difficulty);
 
+	void startStage();
+	bool isStageDone() const;
+	int getQueueSize() const;
+
 private:
 	ItemCollection items;
 	std::vector<String> itemQueue;
@@ -50,6 +55,7 @@ private:
 	int health = 10;
 
 	int nItemsComplete = 0;
+	int stageItemsGenerated = 0;
 
 	bool restart = false;
 	Difficulty difficulty = Difficulty::Easy;

@@ -7,7 +7,7 @@ class GameStateSystem final : public GameStateSystemBase<GameStateSystem> {
 public:
 	void init()
 	{
-		setDifficulty(Difficulty::Easy);
+		setDifficulty(getItemService().getDifficulty());
 	}
 
 	void update(Time t)
@@ -66,7 +66,7 @@ private:
 			msg = "Sudden Death!";
 			break;
 		}
-		getUIService().showImportantMessage(msg, 2.0f);
+		getUIService().showImportantMessage(msg, 4.0f);
 	}
 };
 
