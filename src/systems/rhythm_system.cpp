@@ -35,14 +35,20 @@ private:
 
 	void createBeatMarker(int id, BlacksmithActions action)
 	{
-		auto curItemLevel = getItemService().getItemLevel(getRhythmService().getCurItemId());
-		auto effectiveAction = curItemLevel == 3 ? BlacksmithActions::Idle : action;
+		const int curItemLevel = getItemService().getItemLevel(getRhythmService().getCurItemId());
+		const bool fromMemory = curItemLevel == 3;
+		
+		const auto effectiveAction = fromMemory ? BlacksmithActions::Idle : action;
 		Vector2f pos = BlacksmithActionsUtils::actionToPos(effectiveAction);
 		
 		const float beatLen = getRhythmService().getBeatLength();
 		getWorld().createEntity()
 			.addComponent(PositionComponent(pos))
 			.addComponent(RhythmAreaComponent(id, -0.5f * beatLen, 1.5f * beatLen, effectiveAction));
+
+		if (fromMemory) {
+			getUIService().showMessage("From memory!", 2 * beatLen + 0.05f);
+		}
 	}
 
 	void onNewBeat(int curBeat)
