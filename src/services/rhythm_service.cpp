@@ -62,6 +62,14 @@ int RhythmService::getItemEndBeat() const
 	return itemEndsAt;
 }
 
+int RhythmService::getTimeToNextAction(int beat)
+{
+	if (beat < itemStartsAt) {
+		return itemStartsAt - beat;
+	}
+	return 0;
+}
+
 float RhythmService::getBeatTime(int beat) const
 {
 	return float(beat) * 60.0f / bpm;

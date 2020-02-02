@@ -66,6 +66,11 @@ private:
 		if (getRhythmService().hasMissedBeat(curBeat - 1)) {
 			onIncorrectInput();
 		}
+
+		int timeToNext = getRhythmService().getTimeToNextAction(curBeat);
+		if (timeToNext > 0) {
+			getUIService().showMessage(toString(timeToNext), getRhythmService().getBeatLength() + 0.05f);
+		}
 	}
 
 	void updateInput(InputVirtual& input)

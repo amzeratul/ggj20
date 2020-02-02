@@ -21,6 +21,7 @@ public:
 	int getClosestBeat() const;
 	int getItemStartBeat() const;
 	int getItemEndBeat() const;
+	int getTimeToNextAction(int beat);
 	float getBeatTime(int beat) const;
 
 	void onNewItem(const ItemConfig& item);
