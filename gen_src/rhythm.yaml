@@ -84,6 +84,7 @@ system:
   access:
   - world
   - resources
+  - api
   messages:
   - Move: send
 

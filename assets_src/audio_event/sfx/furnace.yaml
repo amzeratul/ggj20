@@ -1,0 +1,6 @@
+---
+actions:
+  - type: play
+    clips: [ sfx/sfx_furnace_success_01.ogg, sfx/sfx_furnace_success_02.ogg, sfx/sfx_furnace_success_03.ogg ]
+    group: sfx
+...

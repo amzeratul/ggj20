@@ -141,13 +141,14 @@ private:
 					const auto curAction = getRhythmService().getActionAtBeat(getRhythmService().getCurrentBeat());
 					item.position.position = BlacksmithActionsUtils::actionToPos(curAction);
 					updateVulcanAnimation(curAction);
+					playActionSound(curAction);
 					break;
 				}
 			}
 		}
 	}
 
-	String getAnimNameForVulcan(BlacksmithActions action)
+	String getActionName(BlacksmithActions action)
 	{
 		switch (action) {
 		case BlacksmithActions::Anvil:
@@ -168,11 +169,16 @@ private:
 	{
 		for (auto& v: vulcanFamily) {
 			if (v.environmentObject.id == "vulcan") {
-				v.spriteAnimation.player.setSequence(getAnimNameForVulcan(action));
+				v.spriteAnimation.player.setSequence(getActionName(action));
 				v.environmentObject.animTarget = "idle";
 				v.environmentObject.animTime = getRhythmService().getBeatLength() * 0.7f;
 			}
 		}
+	}
+
+	void playActionSound(BlacksmithActions action)
+	{
+		getAPI().audio->postEvent("sfx/" + getActionName(action), AudioPosition::makeFixed());
 	}
 
 	static Vector2f getItemPos(ItemState state)
