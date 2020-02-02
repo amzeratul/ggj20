@@ -1,5 +1,10 @@
 #include "item_service.h"
 
+ItemService::ItemService(Resources& resources)
+{
+	setItems(ItemCollection(resources.get<ConfigFile>("gameplay/items")->getRoot()));
+}
+
 void ItemService::setItems(ItemCollection i)
 {
 	items = std::move(i);
@@ -117,6 +122,16 @@ bool ItemService::needsRestart() const
 void ItemService::setMissCallback(MissCallback c)
 {
 	callback = c;
+}
+
+Difficulty ItemService::getDifficulty() const
+{
+	return difficulty;
+}
+
+void ItemService::setDifficulty(Difficulty diff)
+{
+	difficulty = diff;
 }
 
 static int getMaxItems(int nItemsComplete)

@@ -8,16 +8,19 @@
 #include "services/item_service.h"
 #include "services/ui_service.h"
 #include "game.h"
+#include "title_stage.h"
+
+GameStage::GameStage(std::shared_ptr<ItemService> itemService)
+	: itemService(itemService)
+{
+}
 
 void GameStage::init()
 {
 	auto& game = dynamic_cast<GGJ20Game&>(getGame());
 	
-	painterService = std::make_unique<PainterService>();
-	rhythmService = std::make_unique<RhythmService>();
-	itemService = std::make_unique<ItemService>();
-
-	itemService->setItems(ItemCollection(getResources().get<ConfigFile>("gameplay/items")->getRoot()));
+	painterService = std::make_shared<PainterService>();
+	rhythmService = std::make_shared<RhythmService>();
 
 	world = createWorld("stages/game_stage", createSystem, createComponent);
 	world->addService(painterService);
@@ -37,7 +40,7 @@ void GameStage::onVariableUpdate(Time t)
 	world->step(TimeLine::VariableUpdate, t);
 
 	if (itemService->needsRestart()) {
-		getAPI().core->setStage(std::make_unique<GameStage>());
+		getAPI().core->setStage(std::make_unique<TitleStage>());
 	}
 }
 

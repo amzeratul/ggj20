@@ -1,6 +1,7 @@
 #pragma once
 
 #include <halley.hpp>
+#include "src/game_state.h"
 using namespace Halley;
 
 #include "../item_config.h"
@@ -9,6 +10,8 @@ class ItemService : public Service
 {
 public:
 	using MissCallback = std::function<void(int)>;
+
+	explicit ItemService(Resources& resources);
 	
 	void setItems(ItemCollection items);
 
@@ -34,6 +37,9 @@ public:
 
 	void setMissCallback(MissCallback callback);
 
+	Difficulty getDifficulty() const;
+	void setDifficulty(Difficulty difficulty);
+
 private:
 	ItemCollection items;
 	std::vector<String> itemQueue;
@@ -46,6 +52,7 @@ private:
 	int nItemsComplete = 0;
 
 	bool restart = false;
+	Difficulty difficulty = Difficulty::Easy;
 
 	MissCallback callback;
 

@@ -16,7 +16,7 @@ void TitleStage::onVariableUpdate(Time)
 {
 	auto input = dynamic_cast<GGJ20Game&>(getGame()).getInputService();
 	if (input->getInput().isAnyButtonPressed()) {
-		getCoreAPI().setStage(std::make_unique<GameStage>());
+		getCoreAPI().setStage(std::make_unique<GameStage>(std::make_shared<ItemService>(getResources())));
 	}
 }
 

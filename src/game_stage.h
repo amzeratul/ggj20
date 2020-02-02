@@ -9,6 +9,7 @@ using namespace Halley;
 
 class GameStage : public EntityStage {
 public:
+	explicit GameStage(std::shared_ptr<ItemService> itemService);
 	void init() override;
 
 	void onVariableUpdate(Time) override;
