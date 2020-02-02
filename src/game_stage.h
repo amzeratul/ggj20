@@ -16,7 +16,6 @@ public:
 
 private:
 	std::shared_ptr<PainterService> painterService;
-	std::shared_ptr<InputService> inputService;
 	std::shared_ptr<RhythmService> rhythmService;
 	std::shared_ptr<ItemService> itemService;
 	
