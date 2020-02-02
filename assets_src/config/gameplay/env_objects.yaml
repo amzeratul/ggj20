@@ -31,4 +31,14 @@ objects:
     layer: objects
     position: [0, 88]
     bounce: 0
+  - id: wall
+    animation: wall
+    layer: wall
+    position: [0, 0]
+    bounce: 0
+  - id: bg
+    animation: bg
+    layer: background
+    position: [0, 0]
+    bounce: .3
 ...
