@@ -1,5 +1,6 @@
 #include <systems/game_state_system.h>
 #include "src/game_state.h"
+#include "src/game_stage.h"
 
 using namespace Halley;
 
@@ -7,7 +8,8 @@ class GameStateSystem final : public GameStateSystemBase<GameStateSystem> {
 public:
 	void init()
 	{
-		setDifficulty(Difficulty::Easy);
+		getItemService().startStage();
+		setDifficulty(getItemService().getDifficulty());
 	}
 
 	void update(Time t)
@@ -15,7 +17,9 @@ public:
 		stateTime += t;
 		
 		if (gameState == GameState::Play) {
-			if (!getItemService().isAlive()) {
+			if (getItemService().isStageDone()) {
+				setState(GameState::Done);
+			} else if (!getItemService().isAlive()) {
 				setState(GameState::Lose);
 			}
 		}
@@ -25,6 +29,12 @@ public:
 				if (getInputService().getInput().isAnyButtonPressed()) {
 					getItemService().flagRestart();
 				}
+			}
+		}
+
+		if (gameState == GameState::Done) {
+			if (stateTime > 1.0f) {
+				nextLevel();
 			}
 		}
 	}
@@ -66,7 +76,17 @@ private:
 			msg = "Sudden Death!";
 			break;
 		}
-		getUIService().showImportantMessage(msg, 2.0f);
+		getUIService().showImportantMessage(msg, 4.0f);
+	}
+
+	void nextLevel()
+	{
+		auto nextDifficulty = getItemService().getDifficulty();
+		if (nextDifficulty != Difficulty::SuddenDeath) {
+			nextDifficulty = Difficulty(int(nextDifficulty) + 1);
+		}
+		getItemService().setDifficulty(nextDifficulty);
+		getAPI().core->setStage(std::make_unique<GameStage>(getItemService().getSelf()));
 	}
 };
 

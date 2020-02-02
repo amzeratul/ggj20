@@ -80,6 +80,12 @@ component:
   - id: 'Halley::String'
   - animTime: float
   - animTarget: 'Halley::String'
+
+---
+
+component:
+  name: Bouncy
+  members:
   - bounceTime: float
   - bounceAmplitude: float
 
@@ -90,8 +96,10 @@ system:
   families:
   - object:
     - EnvironmentObject: write
-    - Sprite: write
     - SpriteAnimation: write
+  - bouncy:
+    - Bouncy: read
+    - Sprite: write
   strategy: global
   access:
   - world

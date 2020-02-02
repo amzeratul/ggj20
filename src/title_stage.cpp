@@ -6,13 +6,19 @@ void TitleStage::init()
 {
 	getAudioAPI().stopAllMusic(0.5f);
 	titleScreen.setImage(getResources(), "title.png");
+
+	getResources().get<AudioClip>("music/music_mainloop_100_4_4.ogg");
+	getResources().get<AudioClip>("music/music_mainloop_120_4_4.ogg");
+	getResources().get<AudioClip>("music/music_mainloop_140_4_4.ogg");
 }
 
 void TitleStage::onVariableUpdate(Time)
 {
 	auto input = dynamic_cast<GGJ20Game&>(getGame()).getInputService();
 	if (input->getInput().isAnyButtonPressed()) {
-		getCoreAPI().setStage(std::make_unique<GameStage>());
+		auto itemService = std::make_shared<ItemService>(getResources());
+		itemService->setSelf(itemService);
+		getCoreAPI().setStage(std::make_unique<GameStage>(itemService));
 	}
 }
 

@@ -33,8 +33,8 @@ public:
 		}
 
 		float bounceTime = (getRhythmService().getCurrentTime() - curBeatTime) / beatLength;
-		for (auto& e: envObjectsFamily) {
-			e.environmentObject.bounceTime = bounceTime;
+		for (auto& e: bouncyFamily) {
+			e.bouncy.bounceTime = bounceTime;
 		}
 	}
 
@@ -72,7 +72,7 @@ private:
 		}
 
 		int timeToNext = getRhythmService().getTimeToNextAction(curBeat);
-		if (timeToNext > 0) {
+		if (timeToNext > 0 && timeToNext <= 3) {
 			getUIService().showMessage(toString(timeToNext), getRhythmService().getBeatLength() + 0.05f);
 		}
 	}
@@ -81,7 +81,7 @@ private:
 	{
 		// Missed beat?
 		if (getRhythmService().hasMissedBeat(curBeat)) {
-			onIncorrectInput();
+			onIncorrectInput(curBeat);
 			getRhythmService().onBeatMiss(curBeat);
 		}
 	}
@@ -111,20 +111,20 @@ private:
 				
 				bool correct = getRhythmService().onBeatInput(closest, type);
 				if (!correct) {
-					onIncorrectInput();
+					onIncorrectInput(closest);
 				}
 			} else {
 				// Hit out of time
 				getRhythmService().onBeatMiss(closest);
-				onIncorrectInput();
+				onIncorrectInput(closest);
 			}
 		}
 	}
 
-	void onIncorrectInput()
+	void onIncorrectInput(int beat)
 	{
 		// TODO: sound/visual feedback
-		getItemService().onMiss();
+		getItemService().onMiss(beat);
 		getUIService().showMessage("Missed!", 1.0f);
 	}
 };

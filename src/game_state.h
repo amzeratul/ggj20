@@ -2,6 +2,7 @@
 
 enum class GameState {
     Play,
+	Done,
     Lose
 };
 

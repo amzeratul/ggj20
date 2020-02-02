@@ -1,6 +1,7 @@
 #include <systems/items_system.h>
 #include "src/sprite_layers.h"
 #include "components/move_animation_component.h"
+#include "components/bouncy_component.h"
 
 using namespace Halley;
 
@@ -11,7 +12,7 @@ public:
 		updateQueue();
 		updateVulcanAnimation(BlacksmithActions::Idle);
 
-		getItemService().setMissCallback([this]() { onMiss(); });
+		getItemService().setMissCallback([this](int beat) { onMiss(beat); });
 	}
 	
 	void update(Time t)
@@ -22,7 +23,7 @@ public:
 
 		if (curBeat != getRhythmService().getCurrentBeat()) {
 			curBeat = getRhythmService().getCurrentBeat();
-			onBeat();
+			onBeat(curBeat);
 		}
 	}
 
@@ -39,7 +40,9 @@ private:
 		
 		if (getItemService().updateQueue()) {
 			if (getItemService().isAlive()) {
-				createItem(getItemService().getItemAt(2));
+				if (getItemService().canSpawnItem()) {
+					createItem(getItemService().getItemAt(0));
+				}
 				nextStageAll();
 			}
 		}
@@ -57,7 +60,8 @@ private:
 			.addComponent(PositionComponent(startPos))
 			.addComponent(SpriteComponent(Sprite().setImage(getResources(), itemConfig.imageBroken).setPivot(Vector2f(0.5f, 0.5f)), int(SpriteLayers::Items), 1))
 			.addComponent(ItemComponent(itemId, itemConfig.id, ItemState::QueueBack))
-			.addComponent(MoveAnimationComponent(true, startPos, endPos, getRhythmService().getBeatLength(), 0, MoveType::Conveyour));
+			.addComponent(MoveAnimationComponent(true, startPos, endPos, getRhythmService().getBeatLength(), 0, MoveType::Conveyour))
+			.addComponent(BouncyComponent(0, 1));
 	}
 
 	void startItem()
@@ -78,6 +82,9 @@ private:
 	{
 		for (auto& item: itemFamily) {
 			nextStage(item);
+		}
+		if (itemFamily.size() == 0) {
+			getItemService().endStage();
 		}
 	}
 
@@ -135,15 +142,20 @@ private:
 		}
 	}
 
-	void onBeat()
+	void onBeat(int beat)
 	{
 		if (getItemService().isAlive()) {
 			for (auto& item: itemFamily) {
 				if (item.item.state == ItemState::CurrentActive) {
 					const auto curAction = getRhythmService().getActionAtBeat(getRhythmService().getCurrentBeat());
 					item.position.position = BlacksmithActionsUtils::actionToPos(curAction);
-					updateVulcanAnimation(curAction);
-					playActionSound(curAction);
+
+					if (beat != beatMiss) {
+						updateVulcanAnimation(curAction);
+						playActionSound(curAction);
+					} else {
+						updateVulcanAnimation(BlacksmithActions::Fail);
+					}
 					break;
 				}
 			}
@@ -163,6 +175,8 @@ private:
 			return "idle";
 		case BlacksmithActions::Love:
 			return "love";
+		case BlacksmithActions::Fail:
+			return "fail";
 		}
 		return "";
 	}
@@ -221,11 +235,17 @@ private:
 		getItemService().onItemDone(itemConfig.id, itemOK);
 	}
 
-	void onMiss()
+	void onMiss(int beat)
 	{
-		lastSound->stop();
+		beatMiss = beat;
+		if (lastSound) {
+			lastSound->stop();
+			lastSound = {};
+		}
+		updateVulcanAnimation(BlacksmithActions::Fail);
 	}
 
+	int beatMiss = -1;
 	int curBeat = -1;
 	int nextItemId = 0;
 	bool itemOK = false;
