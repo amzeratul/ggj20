@@ -8,6 +8,7 @@ class GameStateSystem final : public GameStateSystemBase<GameStateSystem> {
 public:
 	void init()
 	{
+		getUIService().fadeIn(1.0f);
 		getItemService().startStage();
 		setDifficulty(getItemService().getDifficulty());
 		getAPI().audio->playMusic("sfx/ambience", 1);
@@ -20,6 +21,7 @@ public:
 		if (gameState == GameState::Play) {
 			if (getItemService().isStageDone()) {
 				setState(GameState::Done);
+				getUIService().fadeOut(1.0f);
 			} else if (!getItemService().isAlive()) {
 				setState(GameState::Lose);
 			}

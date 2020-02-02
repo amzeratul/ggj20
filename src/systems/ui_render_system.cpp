@@ -41,6 +41,11 @@ private:
 		} else {
 			paintGameOverUI(painter);
 		}
+
+		float fade = getUIService().getFadeOpacity();
+		if (fade > 0.001f) {
+			screen.clone().setColour(Colour4f(0, 0, 0, fade)).draw(painter);
+		}
     }
 
 	void paintGameUI(Painter& painter)

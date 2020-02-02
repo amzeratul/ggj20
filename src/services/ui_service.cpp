@@ -6,6 +6,14 @@ void UIService::update(Time t)
 	if (timeLeft < 0 && !curMessage.isEmpty()) {
 		curMessage = "";
 	}
+
+	if (fade != FadeMode::Normal) {
+		curFadeTime += t;
+		if (curFadeTime >= fadeTime) {
+			curFadeTime = 0;
+			fade = FadeMode::Normal;
+		}
+	}
 }
 
 void UIService::showMessage(const String& msg, float time)
@@ -37,4 +45,30 @@ Colour4f UIService::getColour() const
 Colour4f UIService::getOutColour() const
 {
 	return outCol;
+}
+
+void UIService::fadeIn(Time t)
+{
+	fade = FadeMode::FadeIn;
+	fadeTime = t;
+	curFadeTime = 0;
+}
+
+void UIService::fadeOut(Time t)
+{
+	fade = FadeMode::FadeOut;
+	fadeTime = t;
+	curFadeTime = 0;
+}
+
+float UIService::getFadeOpacity() const
+{
+	if (fade == FadeMode::Normal) {
+		return 0;
+	} else if (fade == FadeMode::FadeIn) {
+		return 1.0f - float(curFadeTime / fadeTime);
+	} else if (fade == FadeMode::FadeOut) {
+		return float(curFadeTime / fadeTime);
+	}
+	return 0;
 }
