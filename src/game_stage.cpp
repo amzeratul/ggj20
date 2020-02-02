@@ -25,10 +25,6 @@ void GameStage::init()
 	world->addService(std::make_shared<UIService>());
 
 	world->createEntity()
-		.addComponent(SpriteComponent(Sprite().setImage(getResources(), "background.png"), int(SpriteLayers::Background), 1))
-		.addComponent(PositionComponent(Vector2f(0.0f, 0.0f)));
-
-	world->createEntity()
 		.addComponent(PositionComponent(Vector2f(192.0f, 108.0f)))
 		.addComponent(CameraComponent(3.0f, Colour4f(0.0f, 0.0f, 0.0f), 1, 0));
 }
