@@ -188,7 +188,7 @@ std::shared_ptr<ItemService> ItemService::getSelf() const
 
 static int getMaxItems(int nItemsComplete)
 {
-	return 1 + (nItemsComplete + 5) / 10;
+	return 2 + (nItemsComplete + 5) / 10;
 }
 
 void ItemService::addNextItem()

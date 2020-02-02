@@ -265,6 +265,7 @@ private:
 			lastSound = {};
 		}
 		updateVulcanAnimation(BlacksmithActions::Fail);
+		getAPI().audio->postEvent("sfx/buzz", AudioPosition::makeFixed());
 	}
 
 	int beatMiss = -1;

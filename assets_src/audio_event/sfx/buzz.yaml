@@ -1,0 +1,6 @@
+---
+actions:
+  - type: play
+    clips: [ sfx/buzz.ogg ]
+    group: sfx
+...
