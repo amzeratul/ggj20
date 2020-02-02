@@ -29,7 +29,7 @@ private:
 			float opacity = pow(t, 2.0f);
 			auto col = e.rhythmArea.action == BlacksmithActions::Idle ? Colour4f(0.5f, 1.0f, 0.5f, opacity) :  Colour4f(1, 1, 1, opacity);
 			auto col2 = col;
-			col2.a = 0.2f;
+			col2.a = 0.35f;
 			painter.drawCircle(e.position.position, endRadius, 2, col2);
 			painter.drawCircle(e.position.position, radius, 2, col);
 		}
