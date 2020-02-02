@@ -141,13 +141,14 @@ private:
 					const auto curAction = getRhythmService().getActionAtBeat(getRhythmService().getCurrentBeat());
 					item.position.position = BlacksmithActionsUtils::actionToPos(curAction);
 					updateVulcanAnimation(curAction);
+					playActionSound(curAction);
 					break;
 				}
 			}
 		}
 	}
 
-	String getAnimNameForVulcan(BlacksmithActions action)
+	String getActionName(BlacksmithActions action)
 	{
 		switch (action) {
 		case BlacksmithActions::Anvil:
@@ -168,11 +169,16 @@ private:
 	{
 		for (auto& v: vulcanFamily) {
 			if (v.environmentObject.id == "vulcan") {
-				v.spriteAnimation.player.setSequence(getAnimNameForVulcan(action));
+				v.spriteAnimation.player.setSequence(getActionName(action));
 				v.environmentObject.animTarget = "idle";
 				v.environmentObject.animTime = getRhythmService().getBeatLength() * 0.7f;
 			}
 		}
+	}
+
+	void playActionSound(BlacksmithActions action)
+	{
+		getAPI().audio->postEvent("sfx/" + getActionName(action), AudioPosition::makeFixed());
 	}
 
 	static Vector2f getItemPos(ItemState state)
@@ -185,9 +191,9 @@ private:
 		case ItemState::QueueFront:
 			return Vector2f(35, 110);
 		case ItemState::CurrentWait:
-			return Vector2f(80, 110);
+			return Vector2f(80, 120);
 		case ItemState::Done:
-			return Vector2f(325, 110);
+			return Vector2f(338, 120);
 		case ItemState::Failed:
 			return Vector2f(192, 300);
 		case ItemState::Out:
@@ -201,8 +207,14 @@ private:
 	{	
 		if (itemOK) {
 			item.sprite.sprite.setImage(getResources(), itemConfig.imageFixed).setPivot(Vector2f(0.5f, 0.5f));
+			if (item.item.type == "dog") {
+				getUIService().showMessage("Dog is already perfect!", 1.0f);
+			} else {
+				getUIService().showMessage("Item repaired!", 1.0f);
+			}
 		} else {
 			item.item.state = ItemState::Failed;
+			getUIService().showMessage("Repair failed", 1.0f);
 		}
 		getItemService().onItemDone(itemConfig.id, itemOK);
 	}

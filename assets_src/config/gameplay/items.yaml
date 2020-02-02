@@ -9,12 +9,16 @@ items:
     imageBroken: items/helmet_broken.png
     imageFixed: items/helmet_fixed.png
     actions: "YYYB"
+  - id: shield
+    imageBroken: items/shield_broken.png
+    imageFixed: items/shield_fixed.png
+    actions: "XXXB"
   - id: knife
     imageBroken: items/knife_broken.png
     imageFixed: items/knife_broken.png
     actions: "XYYB"
   - id: laptop
-    imageBroken: items/laptop_fixed.png
+    imageBroken: items/laptop_broken.png
     imageFixed: items/laptop_fixed.png
     actions: "XAXB"
   - id: dog

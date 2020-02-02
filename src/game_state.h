@@ -8,5 +8,6 @@ enum class GameState {
 enum class Difficulty {
     Easy,
     Normal,
-    Hard
+    Hard,
+	SuddenDeath
 };

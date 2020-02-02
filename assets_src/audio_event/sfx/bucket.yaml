@@ -1,0 +1,6 @@
+---
+actions:
+  - type: play
+    clips: [ sfx/sfx_water_success_01.ogg, sfx/sfx_water_success_02.ogg ]
+    group: sfx
+...

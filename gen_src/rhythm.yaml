@@ -29,6 +29,7 @@ system:
   - RhythmService
   - ItemService
   - InputService
+  - UIService
   access:
   - world
   - resources
@@ -79,9 +80,11 @@ system:
   services:
   - RhythmService
   - ItemService
+  - UIService
   access:
   - world
   - resources
+  - api
   messages:
   - Move: send
 
@@ -133,6 +136,7 @@ system:
   - RhythmService
   - ItemService
   - InputService
+  - UIService
   access:
   - api
   - resources

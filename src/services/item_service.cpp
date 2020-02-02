@@ -110,12 +110,40 @@ bool ItemService::needsRestart() const
 	return restart;
 }
 
+static int getMaxItems(int nItemsComplete)
+{
+	if (nItemsComplete < 5) {
+		return 1;
+	}
+	if (nItemsComplete < 15) {
+		return 2;
+	}
+	if (nItemsComplete < 25) {
+		return 3;
+	}
+	if (nItemsComplete < 40) {
+		return 4;
+	}
+	if (nItemsComplete < 55) {
+		return 5;
+	}
+	if (nItemsComplete < 70) {
+		return 6;
+	}
+	if (nItemsComplete < 85) {
+		return 7;
+	}
+	if (nItemsComplete < 100) {
+		return 8;
+	}
+	return 999;
+}
+
 void ItemService::addNextItem()
 {
-	const int maxItems = 1 + (nItemsComplete + 5) / 10;
-
-	const int sz = std::min(maxItems, int(items.getIds().size()));
+	const int sz = std::min(getMaxItems(nItemsComplete), int(items.getIds().size()));
 	auto& rng = Random::getGlobal();
 	auto id = items.getIds().at(rng.getInt(0, sz - 1));
+
 	itemQueue.push_back(id);
 }

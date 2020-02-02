@@ -1,8 +1,22 @@
 #include "rhythm_service.h"
 
-void RhythmService::start(AudioAPI& api)
+void RhythmService::start(Difficulty difficulty, AudioAPI& api)
 {
-	music = api.playMusic("music/music0");
+	switch (difficulty) {
+	case Difficulty::Easy:
+		music = api.playMusic("music/music0");
+		bpm = 100;
+		break;
+	case Difficulty::Normal:
+		music = api.playMusic("music/music1");
+		bpm = 120;
+		break;
+	case Difficulty::Hard:
+		music = api.playMusic("music/music2");
+		bpm = 140;
+		break;
+	}
+	
 	setCurrentTime(0);
 }
 
@@ -46,6 +60,14 @@ int RhythmService::getItemStartBeat() const
 int RhythmService::getItemEndBeat() const
 {
 	return itemEndsAt;
+}
+
+int RhythmService::getTimeToNextAction(int beat)
+{
+	if (beat < itemStartsAt) {
+		return itemStartsAt - beat;
+	}
+	return 0;
 }
 
 float RhythmService::getBeatTime(int beat) const

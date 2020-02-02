@@ -22,4 +22,10 @@ type:
   name: RhythmService
   include: "src/services/rhythm_service.h"
 
+---
+
+type:
+  name: UIService
+  include: "src/services/ui_service.h"
+
 ...
