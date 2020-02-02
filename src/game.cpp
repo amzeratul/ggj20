@@ -31,7 +31,7 @@ int GGJ20Game::initPlugins(IPluginRegistry& registry)
 }
 
 void GGJ20Game::initResourceLocator(const Path& gamePath, const Path& assetsPath, const Path& unpackedAssetsPath, ResourceLocator& locator) {
-	constexpr bool localAssets = true;
+	constexpr bool localAssets = Debug::isDebug();
 	if (localAssets) {
 		locator.addFileSystem(unpackedAssetsPath);
 	} else {
