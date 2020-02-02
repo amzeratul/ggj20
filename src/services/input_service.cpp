@@ -15,6 +15,9 @@ InputService::InputService(InputAPI& input)
 		device->bindButton(1, key, Keys::Right);
 		device->bindButton(2, key, Keys::Left);
 		device->bindButton(3, key, Keys::Up);
+
+		device->bindButton(4, key, Keys::Enter);
+		device->bindButton(4, key, Keys::KP_Enter);
 	}
 	
 	auto joy = input.getJoystick();
@@ -23,6 +26,8 @@ InputService::InputService(InputAPI& input)
 		device->bindButton(1, joy, joy->getButtonAtPosition(JoystickButtonPosition::FaceRight));
 		device->bindButton(2, joy, joy->getButtonAtPosition(JoystickButtonPosition::FaceLeft));
 		device->bindButton(3, joy, joy->getButtonAtPosition(JoystickButtonPosition::FaceTop));
+
+		device->bindButton(4, joy, joy->getButtonAtPosition(JoystickButtonPosition::Start));
 	}
 }
 
