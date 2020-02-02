@@ -77,13 +77,8 @@ float RhythmService::getBeatTime(int beat) const
 
 void RhythmService::onNewItem(const ItemConfig& item)
 {
-	int nextBeat = getCurrentBeat() + 4;
+	int nextBeat = std::max(8, getCurrentBeat() + 4);
 	int alignedBeat = alignUp(nextBeat, 4);
-	if (nextBeat != alignedBeat) {
-		Logger::logWarning("nextBeat and alignedBeat don't match!");
-	} else {
-		//Logger::logInfo("Queued " + item.id + " at " + toString(alignedBeat));
-	}
 	queueActions(item.actions, alignedBeat);
 	itemStartsAt = alignedBeat;
 	itemEndsAt = alignedBeat + int(item.actions.size());

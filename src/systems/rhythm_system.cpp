@@ -72,7 +72,7 @@ private:
 		}
 
 		int timeToNext = getRhythmService().getTimeToNextAction(curBeat);
-		if (timeToNext > 0) {
+		if (timeToNext > 0 && timeToNext <= 3) {
 			getUIService().showMessage(toString(timeToNext), getRhythmService().getBeatLength() + 0.05f);
 		}
 	}

@@ -45,6 +45,9 @@ public:
 	bool isStageDone() const;
 	int getQueueSize() const;
 
+	void setSelf(std::shared_ptr<ItemService> self);
+	std::shared_ptr<ItemService> getSelf() const;
+
 private:
 	ItemCollection items;
 	std::vector<String> itemQueue;
@@ -61,6 +64,7 @@ private:
 	Difficulty difficulty = Difficulty::Easy;
 
 	MissCallback callback;
+	std::weak_ptr<ItemService> self;
 
 	void addNextItem();
 };

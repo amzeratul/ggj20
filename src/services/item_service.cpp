@@ -169,6 +169,16 @@ int ItemService::getQueueSize() const
 	return int(itemQueue.size());
 }
 
+void ItemService::setSelf(std::shared_ptr<ItemService> s)
+{
+	self = s;
+}
+
+std::shared_ptr<ItemService> ItemService::getSelf() const
+{
+	return self.lock();
+}
+
 static int getMaxItems(int nItemsComplete)
 {
 	return 1 + (nItemsComplete + 5) / 10;

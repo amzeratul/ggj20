@@ -1,5 +1,6 @@
 #include <systems/game_state_system.h>
 #include "src/game_state.h"
+#include "src/game_stage.h"
 
 using namespace Halley;
 
@@ -67,6 +68,16 @@ private:
 			break;
 		}
 		getUIService().showImportantMessage(msg, 4.0f);
+	}
+
+	void nextLevel()
+	{
+		auto nextDifficulty = getItemService().getDifficulty();
+		if (nextDifficulty != Difficulty::SuddenDeath) {
+			nextDifficulty = Difficulty(int(nextDifficulty) + 1);
+		}
+		getItemService().setDifficulty(nextDifficulty);
+		getAPI().core->setStage(std::make_unique<GameStage>(getItemService().getSelf()));
 	}
 };
 
