@@ -39,6 +39,6 @@ objects:
   - id: bg
     animation: bg
     layer: floor
-    position: [0, 0]
-    bounce: .3
+    position: [191, 48]
+    bounce: .1
 ...
