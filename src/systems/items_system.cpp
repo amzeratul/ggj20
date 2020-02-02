@@ -78,13 +78,17 @@ private:
 		}
 	}
 
+	bool ended = false;
 	void nextStageAll()
 	{
 		for (auto& item: itemFamily) {
 			nextStage(item);
 		}
-		if (itemFamily.size() == 0) {
-			getItemService().endStage();
+		if (itemFamily.size() == 0 && getRhythmService().getCurrentTime() > 1.0f) {
+			if (!ended) {
+				ended = true;
+				getItemService().endStage();
+			}
 		}
 	}
 
