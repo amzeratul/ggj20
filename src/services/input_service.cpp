@@ -4,8 +4,8 @@ InputService::InputService(InputAPI& input)
 {
 	device = std::make_shared<InputVirtual>(12, 2);
 
-	auto key = input.getKeyboard();
-	if (key) {
+	if (input.getNumberOfKeyboards() > 0) {
+		auto key = input.getKeyboard();
 		device->bindButton(0, key, Keys::S);
 		device->bindButton(1, key, Keys::D);
 		device->bindButton(2, key, Keys::A);
@@ -19,9 +19,9 @@ InputService::InputService(InputAPI& input)
 		device->bindButton(4, key, Keys::Enter);
 		device->bindButton(4, key, Keys::KP_Enter);
 	}
-	
-	auto joy = input.getJoystick();
-	if (joy) {
+
+	if (input.getNumberOfJoysticks() > 0) {
+		auto joy = input.getJoystick();
 		device->bindButton(0, joy, joy->getButtonAtPosition(JoystickButtonPosition::FaceBottom));
 		device->bindButton(1, joy, joy->getButtonAtPosition(JoystickButtonPosition::FaceRight));
 		device->bindButton(2, joy, joy->getButtonAtPosition(JoystickButtonPosition::FaceLeft));
