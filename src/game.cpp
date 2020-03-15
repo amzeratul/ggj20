@@ -77,6 +77,7 @@ std::unique_ptr<Stage> GGJ20Game::startGame(const HalleyAPI* api)
 	api->video->setVsync(vsync);
 	api->audio->startPlayback();
 
+	api->audio->setMasterVolume(0.6f);
 	api->audio->setGroupVolume("music", 1.0f);
 	api->audio->setListener(AudioListenerData(Vector3f(192, 108, -20), 200));
 
