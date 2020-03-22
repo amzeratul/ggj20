@@ -8,6 +8,7 @@ void initSDLAudioPlugin(IPluginRegistry &registry);
 void initSDLInputPlugin(IPluginRegistry &registry);
 void initDX11Plugin(IPluginRegistry &registry);
 void initAsioPlugin(IPluginRegistry &registry);
+void initMetalPlugin(IPluginRegistry &registry);
 
 void GGJ20Game::init(const Environment& env, const Vector<String>& args)
 {
@@ -15,14 +16,18 @@ void GGJ20Game::init(const Environment& env, const Vector<String>& args)
 
 int GGJ20Game::initPlugins(IPluginRegistry& registry)
 {
-	initOpenGLPlugin(registry);
 	initSDLSystemPlugin(registry, {});
 	initSDLAudioPlugin(registry);
 	initSDLInputPlugin(registry);
 
 #ifdef WITH_DX11
 	initDX11Plugin(registry);
-#endif
+#elif __APPLE__
+	initMetalPlugin(registry);
+#else
+	initOpenGLPlugin(registry);
+#endif;
+
 #ifdef WITH_ASIO
 	initAsioPlugin(registry);
 #endif
