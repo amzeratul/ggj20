@@ -1,0 +1,12 @@
+---
+timelines:
+  variableUpdate:
+  - EnvironmentObject
+  
+  - SpriteAnimation
+  - Camera
+
+  render:
+  - SpriteRender
+  - CameraRender
+...

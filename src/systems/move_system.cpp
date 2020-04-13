@@ -18,14 +18,14 @@ public:
 				const auto start = e.moveAnimation.start;
 				const auto end = e.moveAnimation.end;
 				const auto type = e.moveAnimation.moveType;
-				e.position.position = getPosition(start, end, t, type);
+				e.transform2D.setGlobalPosition(getPosition(start, end, t, type));
 			}
 		}
 	}
 
 	void onMessageReceived(const MoveMessage& msg, MainFamily& e)
 	{
-		e.moveAnimation.start = e.position.position;
+		e.moveAnimation.start = e.transform2D.getGlobalPosition();
 		e.moveAnimation.end = msg.to;
 		e.moveAnimation.curTime = 0;
 		e.moveAnimation.len = msg.len;

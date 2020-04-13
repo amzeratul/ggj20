@@ -1,13 +1,6 @@
 ---
 
 component:
-  name: Position
-  members:
-  - position: 'Halley::Vector2f'
-
----
-
-component:
   name: SpritePositionOverride
   members:
   - position: 'std::optional<Halley::Vector2f>'
@@ -18,11 +11,11 @@ system:
   name: SpriteRender
   families:
   - sprite:
-    - Position: read
+    - Transform2D: read
     - SpritePositionOverride: optional read
     - Sprite: write
   - text:
-    - Position: read
+    - Transform2D: read
     - TextLabel: write
   method: render
   strategy: global

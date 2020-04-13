@@ -18,7 +18,7 @@ public:
 		
 		for (auto& cPtr: cams) {
 			auto& c = *cPtr;
-			auto camera = Camera().setZoom(c.camera.zoom).setPosition(c.position.position);
+			auto camera = Camera().setZoom(c.camera.zoom).setPosition(c.transform2D.getGlobalPosition());
 
 			rc.with(camera).bind([&] (Painter& painter) {
 				if (c.camera.clear) {

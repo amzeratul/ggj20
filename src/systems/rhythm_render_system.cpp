@@ -8,7 +8,7 @@ public:
 	void render(RenderContext& rc)
     {
 		for (auto& c: cameraFamily) {
-			auto cam = Camera().setPosition(c.position.position).setZoom(c.camera.zoom);
+			auto cam = Camera().setPosition(c.transform2D.getGlobalPosition()).setZoom(c.camera.zoom);
 			rc.with(cam).bind([&] (Painter& painter)
 			{
 				paint(painter);
@@ -30,8 +30,8 @@ private:
 			auto col = e.rhythmArea.action == BlacksmithActions::Idle ? Colour4f(0.5f, 1.0f, 0.5f, opacity) :  Colour4f(1, 1, 1, opacity);
 			auto col2 = col;
 			col2.a = 0.35f;
-			painter.drawCircle(e.position.position, endRadius, 2, col2);
-			painter.drawCircle(e.position.position, radius, 2, col);
+			painter.drawCircle(e.transform2D.getGlobalPosition(), endRadius, 2, col2);
+			painter.drawCircle(e.transform2D.getGlobalPosition(), radius, 2, col);
 		}
 	}
 };

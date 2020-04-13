@@ -9,7 +9,7 @@ public:
 		for (auto& e: spriteFamily) {
 			auto& sprite = e.sprite.sprite;
 			if (sprite.hasMaterial()) {
-				const Vector2f basePos = e.position.position;
+				const Vector2f basePos = e.transform2D.getGlobalPosition();
 				const Vector2f pos = e.spritePositionOverride.hasValue() ? e.spritePositionOverride.get().position.value_or(basePos) : basePos;
 				sprite.setPos(pos);
 				getPainterService().spritePainter.add(sprite, e.sprite.mask, e.sprite.layer, pos.y);
@@ -17,7 +17,7 @@ public:
 		}
 		for (auto& e: textFamily) {
 			auto& text = e.textLabel.text;
-			text.setPosition(e.position.position);
+			text.setPosition(e.transform2D.getGlobalPosition());
 			getPainterService().spritePainter.add(text, e.textLabel.mask, e.textLabel.layer, text.getPosition().y);
 		}
 	}

@@ -52,7 +52,7 @@ private:
 		
 		const float beatLen = getRhythmService().getBeatLength();
 		getWorld().createEntity()
-			.addComponent(PositionComponent(pos))
+			.addComponent(Transform2DComponent(pos))
 			.addComponent(RhythmAreaComponent(id, -0.5f * beatLen, 1.5f * beatLen, effectiveAction));
 
 		if (fromMemory) {

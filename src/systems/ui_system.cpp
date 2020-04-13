@@ -2,7 +2,7 @@
 #include "components/sprite_animation_component.h"
 #include "src/sprite_layers.h"
 #include "components/sprite_component.h"
-#include "components/position_component.h"
+#include "halley/entity/components/transform_2d_component.h"
 
 using namespace Halley;
 
@@ -14,7 +14,7 @@ public:
 			.addComponent(SpriteComponent(Sprite(), int(SpriteLayers::UI), 1))
 			.addComponent(SpriteAnimationComponent(AnimationPlayer(getResources().get<Animation>("health_bar"))))
 			.addComponent(UIComponent("health"))
-			.addComponent(PositionComponent(Vector2f(5, 5)));
+			.addComponent(Transform2DComponent(Vector2f(5, 5)));
 	}
 	
 	void update(Time t)

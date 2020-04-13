@@ -21,7 +21,7 @@ system:
   families:
   - main:
     - RhythmArea: write
-    - Position: read
+    - Transform2D: read
   - bouncy:
     - Bouncy: write
   strategy: global
@@ -42,10 +42,10 @@ system:
   families:
   - main:
     - RhythmArea: read
-    - Position: read
+    - Transform2D: read
   - camera:
     - Camera: read
-    - Position: read
+    - Transform2D: read
   strategy: global
   method: render
 
@@ -72,7 +72,7 @@ system:
   families:
   - item:
     - Item: write
-    - Position: write
+    - Transform2D: write
     - Sprite: write
   - vulcan:
     - EnvironmentObject: write
@@ -122,7 +122,7 @@ system:
   strategy: global
   families:
   - main:
-    - Position: write
+    - Transform2D: write
     - MoveAnimation: write
   messages:
   - Move: receive

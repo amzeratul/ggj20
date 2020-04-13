@@ -29,7 +29,7 @@ system:
   families:
   - camera:
     - Camera: read
-    - Position: read
+    - Transform2D: read
   strategy: global
   method: render
   access:

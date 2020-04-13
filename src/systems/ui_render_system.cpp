@@ -23,7 +23,7 @@ public:
 	void render(RenderContext& rc)
 	{
         for (auto& c: cameraFamily) {
-			auto cam = Camera().setPosition(c.position.position).setZoom(c.camera.zoom);
+			auto cam = Camera().setPosition(c.transform2D.getGlobalPosition()).setZoom(c.camera.zoom);
 			rc.with(cam).bind([&] (Painter& painter)
 			{
 				paint(painter);

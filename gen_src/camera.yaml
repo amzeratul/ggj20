@@ -5,7 +5,7 @@ system:
   families:
   - camera:
     - Camera: read
-    - Position: read
+    - Transform2D: read
   method: render
   strategy: global
   services:
@@ -18,7 +18,7 @@ system:
   families:
   - trackingCamera:
     - Camera: read
-    - Position: write
+    - Transform2D: write
   strategy: global
 
 ...

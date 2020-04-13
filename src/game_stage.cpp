@@ -1,13 +1,13 @@
 #include "game_stage.h"
 #include "registry.h"
 #include "components/sprite_component.h"
-#include "components/position_component.h"
 #include "components/camera_component.h"
 #include "sprite_layers.h"
 #include "services/rhythm_service.h"
 #include "services/item_service.h"
 #include "services/ui_service.h"
 #include "game.h"
+#include "halley/entity/components/transform_2d_component.h"
 #include "title_stage.h"
 
 GameStage::GameStage(std::shared_ptr<ItemService> itemService)
@@ -30,7 +30,7 @@ void GameStage::init()
 	world->addService(std::make_shared<UIService>());
 
 	world->createEntity()
-		.addComponent(PositionComponent(Vector2f(192.0f, 108.0f)))
+		.addComponent(Transform2DComponent(Vector2f(192.0f, 108.0f)))
 		.addComponent(CameraComponent(game.getZoom(), Colour4f(0.0f, 0.0f, 0.0f), 1, 0));
 }
 

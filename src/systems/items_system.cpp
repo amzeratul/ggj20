@@ -58,7 +58,7 @@ private:
 
 		// Create new item
 		getWorld().createEntity()
-			.addComponent(PositionComponent(startPos))
+			.addComponent(Transform2DComponent(startPos))
 			.addComponent(SpriteComponent(Sprite().setImage(getResources(), itemConfig.imageBroken).setPivot(Vector2f(0.5f, 0.5f)), int(SpriteLayers::Items), 1))
 			.addComponent(ItemComponent(itemId, itemConfig.id, ItemState::QueueBack))
 			.addComponent(MoveAnimationComponent(true, startPos, endPos, getRhythmService().getBeatLength(), 0, MoveType::Conveyour))
@@ -153,7 +153,7 @@ private:
 			for (auto& item: itemFamily) {
 				if (item.item.state == ItemState::CurrentActive) {
 					const auto curAction = getRhythmService().getActionAtBeat(getRhythmService().getCurrentBeat());
-					item.position.position = BlacksmithActionsUtils::actionToPos(curAction);
+					item.transform2D.setGlobalPosition(BlacksmithActionsUtils::actionToPos(curAction));
 
 					if (beat != beatMiss) {
 						updateVulcanAnimation(curAction);
@@ -205,7 +205,7 @@ private:
 				const auto pos = BlacksmithActionsUtils::actionToPos(action) + posOffset;
 				Vector2f vel = Vector2f(rng.getFloat(50, 100), 0).rotate(Angle1f::fromRadians(rng.getFloat(0, 2 * 3.14159265f)));
 				auto e = getWorld().createEntity()
-					.addComponent(PositionComponent(pos))
+					.addComponent(Transform2DComponent(pos))
 					.addComponent(ParticleComponent(vel))
 					.addComponent(SpriteComponent(Sprite(), int(SpriteLayers::Particles), 1))
 					.addComponent(SpriteAnimationComponent(AnimationPlayer(getResources().get<Animation>(animName), "default", posOffset.x > 0 ? "left" : "right")));

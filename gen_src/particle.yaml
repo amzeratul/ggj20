@@ -12,7 +12,7 @@ system:
   families:
   - particle:
     - Particle: write
-    - Position: write
+    - Transform2D: write
     - SpriteAnimation: write
   strategy: global
   access:
