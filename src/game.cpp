@@ -3,7 +3,7 @@
 #include "title_stage.h"
 
 void initOpenGLPlugin(IPluginRegistry &registry);
-void initSDLSystemPlugin(IPluginRegistry &registry, Maybe<String> cryptKey);
+void initSDLSystemPlugin(IPluginRegistry &registry, std::optional<String> cryptKey);
 void initSDLAudioPlugin(IPluginRegistry &registry);
 void initSDLInputPlugin(IPluginRegistry &registry);
 void initDX11Plugin(IPluginRegistry &registry);
@@ -57,13 +57,12 @@ bool GGJ20Game::isDevMode() const
 	return true;
 }
 
-std::unique_ptr<Stage> GGJ20Game::startGame(const HalleyAPI* api)
+std::unique_ptr<Stage> GGJ20Game::startGame()
 {
-	this->api = api;
-
+	auto& api = getAPI();
 	bool vsync = true;
 
-	auto screenSize = api->system->getScreenSize(0);
+	auto screenSize = api.system->getScreenSize(0);
 	auto windowSize = Vector2i(1920, 1080);
 	auto windowType = WindowType::BorderlessWindow;
 	if (screenSize != windowSize || Debug::isDebug()) {
@@ -73,15 +72,15 @@ std::unique_ptr<Stage> GGJ20Game::startGame(const HalleyAPI* api)
 	
 	zoom = std::max(float(windowSize.x) / 384.0f, float(windowSize.y) / 216.0f);
 	
-	api->video->setWindow(WindowDefinition(windowType, windowSize, "Law of the Instrument"));
-	api->video->setVsync(vsync);
-	api->audio->startPlayback();
+	api.video->setWindow(WindowDefinition(windowType, windowSize, "Law of the Instrument"));
+	api.video->setVsync(vsync);
+	api.audio->startPlayback();
 
-	api->audio->setMasterVolume(0.6f);
-	api->audio->setGroupVolume("music", 1.0f);
-	api->audio->setListener(AudioListenerData(Vector3f(192, 108, -20), 200));
+	api.audio->setMasterVolume(0.6f);
+	api.audio->setGroupVolume("music", 1.0f);
+	api.audio->setListener(AudioListenerData(Vector3f(192, 108, -20), 200));
 
-	inputService = std::make_shared<InputService>(*api->input);
+	inputService = std::make_shared<InputService>(*api.input);
 
 	return std::make_unique<TitleStage>();
 }

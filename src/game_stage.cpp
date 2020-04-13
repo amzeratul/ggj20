@@ -22,7 +22,7 @@ void GameStage::init()
 	painterService = std::make_shared<PainterService>();
 	rhythmService = std::make_shared<RhythmService>();
 
-	world = createWorld("stages/game_stage", createSystem, createComponent);
+	world = createWorld("stages/game_stage");
 	world->addService(painterService);
 	world->addService(game.getInputService());
 	world->addService(rhythmService);

@@ -13,7 +13,7 @@ public:
 	String getName() const override;
 	String getDataPath() const override;
 	bool isDevMode() const override;
-	std::unique_ptr<Stage> startGame(const HalleyAPI* api) override;
+	std::unique_ptr<Stage> startGame() override;
 
 	std::shared_ptr<InputService> getInputService() const;
 	float getZoom() const;
@@ -21,7 +21,6 @@ public:
 	bool shouldCreateSeparateConsole() const override;
 
 private:
-	const HalleyAPI* api = nullptr;
 	float zoom = 3;
 	
 	std::shared_ptr<InputService> inputService;

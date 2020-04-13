@@ -10,7 +10,7 @@ component:
 component:
   name: SpritePositionOverride
   members:
-  - position: 'Halley::Maybe<Halley::Vector2f>'
+  - position: 'std::optional<Halley::Vector2f>'
 
 ---
 
