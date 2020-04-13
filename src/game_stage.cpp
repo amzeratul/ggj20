@@ -46,6 +46,6 @@ void GameStage::onVariableUpdate(Time t)
 
 void GameStage::onRender(RenderContext& rc) const
 {
-	painterService->spritePainter.start(300);
+	painterService->spritePainter.start();
 	world->render(rc);
 }
